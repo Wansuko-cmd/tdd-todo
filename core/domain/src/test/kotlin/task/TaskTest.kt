@@ -23,6 +23,7 @@ class TaskTest {
             featureId = FeatureId("mockedFeatureId"),
             title = TaskTitle("mockTaskTitle"),
             description = TaskDescription("mockTaskDescription"),
+            phase = TaskPhase.Todo,
         )
     }
 
@@ -42,6 +43,7 @@ class TaskTest {
             featureId = mockTask.featureId,
             title = mockTask.title,
             description = mockTask.description,
+            phase = mockTask.phase
         )
         the(mockTask).shouldBeEqual(otherTask)
     }
