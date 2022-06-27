@@ -26,6 +26,15 @@ class TaskTest {
     }
 
     @Test
+    fun Taskのプロパティを確認するテスト() {
+        the(mockTask.id).shouldBeEqual(TaskId("mockedUUID"))
+        the(mockTask.featureId).shouldBeEqual(FeatureId("mockedFeatureId"))
+        the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
+        the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
+        the(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
+    }
+
+    @Test
     fun Taskはプロパティの値が同じであれば等価とみなされる() {
         val otherTask = Task(
             featureId = FeatureId("mockedFeatureId"),
@@ -33,15 +42,6 @@ class TaskTest {
             description = TaskDescription("mockTaskDescription"),
         )
         a(mockTask).shouldBeEqual(otherTask)
-    }
-
-    @Test
-    fun Taskのプロパティは以下の通り() {
-        the(mockTask.id).shouldBeEqual(TaskId("mockedUUID"))
-        the(mockTask.featureId).shouldBeEqual(FeatureId("mockedFeatureId"))
-        the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
-        the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
-        the(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
     }
 
     @Test
