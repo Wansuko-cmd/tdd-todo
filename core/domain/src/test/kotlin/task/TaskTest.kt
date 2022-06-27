@@ -26,4 +26,9 @@ class TaskTest {
         the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
         the(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
     }
+
+    @Test
+    fun TaskのPhaseを変更するテスト() {
+        the(mockTask.copyWithPhase(newPhase = TaskPhase.Refactor).phase).shouldBeEqual(TaskPhase.Refactor)
+    }
 }

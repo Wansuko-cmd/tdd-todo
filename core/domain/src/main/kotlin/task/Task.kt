@@ -6,7 +6,9 @@ data class Task(
     val title: TaskTitle,
     val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
-)
+) {
+    fun copyWithPhase(newPhase: TaskPhase): Task = copy(phase = newPhase)
+}
 
 @JvmInline
 value class TaskId(val value: String)
