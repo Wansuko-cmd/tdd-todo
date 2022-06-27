@@ -26,12 +26,12 @@ class TaskTest {
     }
 
     @Test
-    fun Taskの等価性のテスト() {
+    fun Taskはプロパティの値が同じであれば等価とみなされる() {
         a(mockTask).shouldBeEqual(mockTask)
     }
 
     @Test
-    fun Taskのプロパティを表すテスト() {
+    fun Taskのプロパティは以下の通り() {
         the(mockTask.featureId).shouldBeEqual(FeatureId("mockedFeatureId"))
         the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
         the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
@@ -39,12 +39,12 @@ class TaskTest {
     }
 
     @Test
-    fun TaskのPhaseを変更するテスト() {
+    fun copyWithPhaseを用いてPhaseが変わったTaskを取得可能() {
         the(mockTask.copyWithPhase(newPhase = TaskPhase.Refactor).phase).shouldBeEqual(TaskPhase.Refactor)
     }
 
     @Test
-    fun TaskのIDに関するテスト() {
+    fun TaskのIDはUUIDである() {
         the(mockTask.id).shouldBeEqual(TaskId("5af48f3b-468b-4ae0-a065-7d7ac70b37a8"))
     }
 }
