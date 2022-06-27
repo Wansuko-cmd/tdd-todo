@@ -13,7 +13,7 @@ import kotlin.test.Test
 
 class GetProjectTest {
 
-    private val target = GetProjectUseCaseImpl()
+    private val target: GetProjectUseCase = GetProjectUseCaseImpl()
 
     private val mockData = List(5) { index ->
         Project(
