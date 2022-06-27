@@ -2,7 +2,7 @@ package task
 
 data class Task(
     private val id: TaskId,
-    val projectId: ProjectId,
+    val featureId: FeatureId,
     val title: TaskTitle,
     val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
@@ -18,4 +18,4 @@ value class TaskTitle(val value: String)
 value class TaskDescription(val value: String)
 
 @JvmInline
-value class ProjectId(val value: String)
+value class FeatureId(val value: String)

@@ -9,7 +9,7 @@ class TaskTest {
 
     private val mockTask = Task(
         id = TaskId("mockTaskId"),
-        projectId = ProjectId("mockedProjectId"),
+        featureId = FeatureId("mockedFeatureId"),
         title = TaskTitle("mockTaskTitle"),
         description = TaskDescription("mockTaskDescription"),
     )
@@ -21,7 +21,7 @@ class TaskTest {
 
     @Test
     fun Taskのプロパティを表すテスト() {
-        the(mockTask.projectId).shouldBeEqual(ProjectId("mockedProjectId"))
+        the(mockTask.featureId).shouldBeEqual(FeatureId("mockedFeatureId"))
         the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
         the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
         the(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
