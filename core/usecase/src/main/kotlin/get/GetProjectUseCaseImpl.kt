@@ -1,17 +1,7 @@
 package get
 
-import com.wsr.apiresult.ApiResult
-import project.Project
-import project.ProjectDescription
-import project.ProjectId
-import project.ProjectTitle
+import project.*
 
-class GetProjectUseCaseImpl : GetProjectUseCase {
-    override suspend fun getAll() = ApiResult.Success(List(5) { index ->
-        Project(
-            id = ProjectId("mockId$index"),
-            title = ProjectTitle("mockTitle$index"),
-            description = ProjectDescription("mockDescription$index")
-        )
-    })
+class GetProjectUseCaseImpl(private val repository: ProjectRepository) : GetProjectUseCase {
+    override suspend fun getAll() = repository.getAll()
 }
