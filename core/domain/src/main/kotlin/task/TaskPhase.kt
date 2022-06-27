@@ -5,5 +5,5 @@ enum class TaskPhase {
     Red,
     Green,
     Refactor,
-    Done
+    Done,
 }
