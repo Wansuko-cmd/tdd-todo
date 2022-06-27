@@ -16,7 +16,7 @@ class TaskTest {
     @BeforeTest
     fun setup() {
         mockkStatic(UUID::class)
-        val uuid = "5af48f3b-468b-4ae0-a065-7d7ac70b37a8"
+        val uuid = "mockedUUID"
         every { UUID.randomUUID().toString() } returns uuid
         mockTask = Task(
             featureId = FeatureId("mockedFeatureId"),
@@ -37,6 +37,7 @@ class TaskTest {
 
     @Test
     fun Taskのプロパティは以下の通り() {
+        the(mockTask.id).shouldBeEqual(TaskId("mockedUUID"))
         the(mockTask.featureId).shouldBeEqual(FeatureId("mockedFeatureId"))
         the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
         the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
@@ -46,10 +47,5 @@ class TaskTest {
     @Test
     fun copyWithPhaseを用いてPhaseが変わったTaskを取得可能() {
         the(mockTask.copyWithPhase(newPhase = TaskPhase.Refactor).phase).shouldBeEqual(TaskPhase.Refactor)
-    }
-
-    @Test
-    fun TaskのIDはUUIDである() {
-        the(mockTask.id).shouldBeEqual(TaskId("5af48f3b-468b-4ae0-a065-7d7ac70b37a8"))
     }
 }
