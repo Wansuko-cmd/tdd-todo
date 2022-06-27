@@ -2,7 +2,8 @@ package task
 
 enum class TaskPhase {
     Todo,
-    InProgress,
+    Red,
+    Green,
     Refactor,
     Done
 }
