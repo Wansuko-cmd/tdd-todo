@@ -2,17 +2,28 @@
 
 package task
 
+import io.mockk.every
+import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec.*
+import java.util.*
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class TaskTest {
 
-    private val mockTask = Task(
-        id = TaskId("mockTaskId"),
-        featureId = FeatureId("mockedFeatureId"),
-        title = TaskTitle("mockTaskTitle"),
-        description = TaskDescription("mockTaskDescription"),
-    )
+    private lateinit var mockTask: Task
+
+    @BeforeTest
+    fun setup() {
+        mockkStatic(UUID::class)
+        val uuid = "5af48f3b-468b-4ae0-a065-7d7ac70b37a8"
+        every { UUID.randomUUID().toString() } returns uuid
+        mockTask = Task(
+            featureId = FeatureId("mockedFeatureId"),
+            title = TaskTitle("mockTaskTitle"),
+            description = TaskDescription("mockTaskDescription"),
+        )
+    }
 
     @Test
     fun Taskの等価性のテスト() {
@@ -30,5 +41,10 @@ class TaskTest {
     @Test
     fun TaskのPhaseを変更するテスト() {
         the(mockTask.copyWithPhase(newPhase = TaskPhase.Refactor).phase).shouldBeEqual(TaskPhase.Refactor)
+    }
+
+    @Test
+    fun TaskのIDに関するテスト() {
+        the(mockTask.id).shouldBeEqual(TaskId("5af48f3b-468b-4ae0-a065-7d7ac70b37a8"))
     }
 }

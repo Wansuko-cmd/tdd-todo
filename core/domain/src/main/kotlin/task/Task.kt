@@ -1,7 +1,9 @@
 package task
 
+import java.util.*
+
 data class Task(
-    private val id: TaskId,
+    val id: TaskId = TaskId(UUID.randomUUID().toString()),
     val featureId: FeatureId,
     val title: TaskTitle,
     val description: TaskDescription,
