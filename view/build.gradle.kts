@@ -10,12 +10,6 @@ plugins {
 group = "me.wansu"
 version = "1.0"
 
-repositories {
-    google()
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-}
-
 dependencies {
     implementation(compose.desktop.currentOs)
 }
