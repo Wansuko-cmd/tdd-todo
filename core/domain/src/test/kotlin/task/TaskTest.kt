@@ -27,7 +27,12 @@ class TaskTest {
 
     @Test
     fun Taskはプロパティの値が同じであれば等価とみなされる() {
-        a(mockTask).shouldBeEqual(mockTask)
+        val otherTask = Task(
+            featureId = FeatureId("mockedFeatureId"),
+            title = TaskTitle("mockTaskTitle"),
+            description = TaskDescription("mockTaskDescription"),
+        )
+        a(mockTask).shouldBeEqual(otherTask)
     }
 
     @Test
