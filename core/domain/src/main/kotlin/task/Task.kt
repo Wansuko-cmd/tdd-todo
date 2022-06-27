@@ -1,5 +1,6 @@
 package task
 
+import feature.FeatureId
 import java.util.*
 
 data class Task(
@@ -20,6 +21,3 @@ value class TaskTitle(val value: String)
 
 @JvmInline
 value class TaskDescription(val value: String)
-
-@JvmInline
-value class FeatureId(val value: String)

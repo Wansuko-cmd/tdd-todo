@@ -2,6 +2,7 @@
 
 package task
 
+import feature.FeatureId
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec.*

@@ -1,6 +1,5 @@
 package feature
 
-import task.FeatureId
 import java.util.*
 
 data class Feature(
@@ -9,6 +8,9 @@ data class Feature(
     val title: FeatureTitle,
     val description: FeatureDescription,
 )
+
+@JvmInline
+value class FeatureId(val value: String)
 
 @JvmInline
 value class FeatureTitle(val value: String)
