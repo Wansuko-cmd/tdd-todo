@@ -1,5 +1,6 @@
 package feature
 
+import project.ProjectId
 import java.util.*
 
 data class Feature(
@@ -20,6 +21,3 @@ value class FeatureTitle(val value: String)
 
 @JvmInline
 value class FeatureDescription(val value: String)
-
-@JvmInline
-value class ProjectId(val value: String)

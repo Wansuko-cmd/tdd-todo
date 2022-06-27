@@ -1,6 +1,5 @@
 package project
 
-import feature.ProjectId
 import java.util.*
 
 data class Project(
@@ -8,6 +7,9 @@ data class Project(
     val title: ProjectTitle,
     val description: ProjectDescription,
 )
+
+@JvmInline
+value class ProjectId(val value: String)
 
 @JvmInline
 value class ProjectTitle(val value: String)
