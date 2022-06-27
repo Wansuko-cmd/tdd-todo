@@ -15,7 +15,7 @@ class ProjectTest {
     @BeforeTest
     fun setup() {
         mockkStatic(UUID::class)
-        val uuid = "mockedUUID"
+        val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
         mockProject = Project(
             title = ProjectTitle("mockProjectTitle"),
@@ -25,7 +25,7 @@ class ProjectTest {
 
     @Test
     fun Taskのプロパティを確認するテスト() {
-        the(mockProject.id).shouldBeEqual(ProjectId("mockedUUID"))
+        the(mockProject.id).shouldBeEqual(ProjectId("mockUUID"))
         the(mockProject.title).shouldBeEqual(ProjectTitle("mockProjectTitle"))
         the(mockProject.description).shouldBeEqual(ProjectDescription("mockProjectDescription"))
     }

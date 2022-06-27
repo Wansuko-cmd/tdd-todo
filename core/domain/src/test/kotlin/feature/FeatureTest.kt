@@ -17,10 +17,10 @@ class FeatureTest {
     @BeforeTest
     fun setup() {
         mockkStatic(UUID::class)
-        val uuid = "mockedUUID"
+        val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
         mockFeature = Feature(
-            projectId = ProjectId("mockedProjectId"),
+            projectId = ProjectId("mockProjectId"),
             title = FeatureTitle("mockFeatureTitle"),
             description = FeatureDescription("mockFeatureDescription"),
             phase = FeaturePhase.Todo,
@@ -29,8 +29,8 @@ class FeatureTest {
 
     @Test
     fun Taskのプロパティを確認するテスト() {
-        the(mockFeature.id).shouldBeEqual(FeatureId("mockedUUID"))
-        the(mockFeature.projectId).shouldBeEqual(ProjectId("mockedProjectId"))
+        the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
+        the(mockFeature.projectId).shouldBeEqual(ProjectId("mockProjectId"))
         the(mockFeature.title).shouldBeEqual(FeatureTitle("mockFeatureTitle"))
         the(mockFeature.description).shouldBeEqual(FeatureDescription("mockFeatureDescription"))
     }
