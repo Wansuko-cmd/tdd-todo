@@ -4,8 +4,6 @@ package feature
 
 import io.mockk.every
 import io.mockk.mockkStatic
-import org.javalite.test.jspec.JSpec
-import org.javalite.test.jspec.JSpec.a
 import org.javalite.test.jspec.JSpec.the
 import task.*
 import java.util.*
@@ -46,5 +44,10 @@ class FeatureTest {
             phase = mockFeature.phase,
         )
         the(mockFeature).shouldBeEqual(otherTask)
+    }
+
+    @Test
+    fun copyWithPhaseを用いてPhaseが変わったFeatureを取得可能() {
+        the(mockFeature.copyWithPhase(newPhase = FeaturePhase.Done).phase).shouldBeEqual(FeaturePhase.Done)
     }
 }

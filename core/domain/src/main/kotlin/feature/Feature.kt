@@ -8,7 +8,9 @@ data class Feature(
     val title: FeatureTitle,
     val description: FeatureDescription,
     val phase: FeaturePhase,
-)
+) {
+    fun copyWithPhase(newPhase: FeaturePhase): Feature = copy(phase = newPhase)
+}
 
 @JvmInline
 value class FeatureId(val value: String)
