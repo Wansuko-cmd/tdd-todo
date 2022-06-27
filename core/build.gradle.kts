@@ -4,4 +4,9 @@ plugins {
 
 subprojects {
     apply(plugin = "kotlin")
+
+    dependencies {
+        testImplementation(kotlin("test"))
+        testImplementation("org.javalite:javalite-common:3.1-j11")
+    }
 }
