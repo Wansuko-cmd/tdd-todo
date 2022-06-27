@@ -1,7 +1,8 @@
-package project
+package get
 
 import com.wsr.apiresult.ApiResult
+import project.Project
 
-interface ProjectRepository {
+interface GetProjectQueryService {
     suspend fun getAll(): ApiResult<List<Project>, Exception>
 }

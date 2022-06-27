@@ -18,12 +18,12 @@ class GetProjectTest {
 
     private lateinit var target: GetProjectUseCase
     @MockK
-    private lateinit var projectRepository: ProjectRepository
+    private lateinit var getProjectQueryService: GetProjectQueryService
 
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        target = GetProjectUseCaseImpl(projectRepository)
+        target = GetProjectUseCaseImpl(getProjectQueryService)
     }
 
     private val mockData = List(5) { index ->
@@ -36,12 +36,12 @@ class GetProjectTest {
 
     @Test
     fun 全部プロジェクトを取得する() = runBlocking {
-        coEvery { projectRepository.getAll() } returns ApiResult.Success(mockData)
+        coEvery { getProjectQueryService.getAll() } returns ApiResult.Success(mockData)
         val projects = target.getAll()
 
         the(projects).shouldBeEqual(ApiResult.Success(mockData))
 
-        coVerify(exactly = 1) { projectRepository.getAll() }
-        confirmVerified(projectRepository)
+        coVerify(exactly = 1) { getProjectQueryService.getAll() }
+        confirmVerified(getProjectQueryService)
     }
 }

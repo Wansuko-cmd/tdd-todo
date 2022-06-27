@@ -1,7 +1,5 @@
 package get
 
-import project.*
-
-class GetProjectUseCaseImpl(private val repository: ProjectRepository) : GetProjectUseCase {
-    override suspend fun getAll() = repository.getAll()
+class GetProjectUseCaseImpl(private val queryService: GetProjectQueryService) : GetProjectUseCase {
+    override suspend fun getAll() = queryService.getAll()
 }
