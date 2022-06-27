@@ -3,8 +3,8 @@ package task
 data class Task(
     private val id: TaskId,
     val projectId: ProjectId,
-    private val title: TaskTitle,
-    private val description: TaskDescription,
+    val title: TaskTitle,
+    val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
 )
 
