@@ -5,6 +5,7 @@ package feature
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec
+import org.javalite.test.jspec.JSpec.a
 import org.javalite.test.jspec.JSpec.the
 import task.*
 import java.util.*
@@ -37,10 +38,11 @@ class FeatureTest {
     @Test
     fun Featureはプロパティの値が同じであれば等価とみなされる() {
         val otherTask = Feature(
-            projectId = ProjectId("mockedProjectId"),
-            title = FeatureTitle("mockFeatureTitle"),
-            description = FeatureDescription("mockFeatureDescription"),
+            id = mockFeature.id,
+            projectId = mockFeature.projectId,
+            title = mockFeature.title,
+            description = mockFeature.description,
         )
-        JSpec.a(mockFeature).shouldBeEqual(otherTask)
+        the(mockFeature).shouldBeEqual(otherTask)
     }
 }
