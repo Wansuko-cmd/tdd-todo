@@ -20,12 +20,8 @@ class TaskTest {
     }
 
     @Test
-    fun Taskの進行状況を表すテスト() {
-        a(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
-    }
-
-    @Test
-    fun Taskが所属するProjectを表すテスト() {
-        a(mockTask.projectId).shouldBeEqual(ProjectId("mockedProjectId"))
+    fun Taskのプロパティを表すテスト() {
+        the(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
+        the(mockTask.projectId).shouldBeEqual(ProjectId("mockedProjectId"))
     }
 }
