@@ -1,7 +1,6 @@
 @file:Suppress("NonAsciiCharacters", "TestFunctionName")
 
-import get.ProjectUseCaseModel
-import get.ProjectUseCaseModel.Companion.toUseCaseModel
+import ProjectUseCaseModel.Companion.toUseCaseModel
 import org.javalite.test.jspec.JSpec.the
 import project.Project
 import project.ProjectDescription

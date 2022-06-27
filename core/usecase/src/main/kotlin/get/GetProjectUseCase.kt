@@ -1,10 +1,10 @@
 package get
 
+import ProjectUseCaseModel
 import com.wsr.apiresult.ApiResult
-import project.Project
 
 interface GetProjectUseCase {
-    suspend fun getAll(): ApiResult<List<Project>, Exception>
+    suspend fun getAll(): ApiResult<List<ProjectUseCaseModel>, Exception>
 }
 
 sealed class GetProjectUseCaseException : Exception() {

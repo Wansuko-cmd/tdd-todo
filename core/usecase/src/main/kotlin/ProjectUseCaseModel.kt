@@ -1,5 +1,3 @@
-package get
-
 import project.Project
 
 data class ProjectUseCaseModel(
