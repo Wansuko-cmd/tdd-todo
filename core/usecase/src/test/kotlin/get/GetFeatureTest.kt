@@ -43,4 +43,11 @@ class GetFeatureTest {
         val expected = ApiResult.Success(mockData.map { it.toUseCaseModel() })
         the(target.getByProjectId(mockProjectId.value)).shouldBeEqual(expected)
     }
+
+    @Test
+    fun Feature取得失敗時はFailureを返す() = runBlocking {
+        coEvery { getFeatureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
+        val expected = ApiResult.Failure(GetFeatureUseCaseException.DatabaseException("Error"))
+        the(target.getByProjectId(mockProjectId.value)).shouldBeEqual(expected)
+    }
 }
