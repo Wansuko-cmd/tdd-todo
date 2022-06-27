@@ -11,6 +11,8 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.javalite.test.jspec.JSpec.the
 import project.*
+import QueryServiceException
+import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -37,10 +39,25 @@ class GetProjectTest {
     @Test
     fun 全部プロジェクトを取得する() = runBlocking {
         coEvery { getProjectQueryService.getAll() } returns ApiResult.Success(mockData)
-        val projects = target.getAll()
 
-        the(projects).shouldBeEqual(ApiResult.Success(mockData))
+        the(target.getAll()).shouldBeEqual(ApiResult.Success(mockData))
 
+        coVerify(exactly = 1) { getProjectQueryService.getAll() }
+        confirmVerified(getProjectQueryService)
+    }
+
+    @Test
+    fun プロジェクト取得失敗時はFailureを返す() = runBlocking {
+        coEvery {
+            getProjectQueryService.getAll()
+        } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
+
+        the(target.getAll())
+            .shouldBeEqual(ApiResult.Failure(GetProjectUseCaseException.DatabaseException("Error")))
+    }
+
+    @AfterTest
+    fun 呼び出し回数のカウント() {
         coVerify(exactly = 1) { getProjectQueryService.getAll() }
         confirmVerified(getProjectQueryService)
     }
