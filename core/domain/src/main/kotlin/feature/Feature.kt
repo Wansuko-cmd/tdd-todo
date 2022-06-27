@@ -7,6 +7,7 @@ data class Feature(
     val projectId: ProjectId,
     val title: FeatureTitle,
     val description: FeatureDescription,
+    val phase: FeaturePhase,
 )
 
 @JvmInline
