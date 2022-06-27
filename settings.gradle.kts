@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "tdd-todo"
 include("view")
-include("core")
+include("core", "core:domain")
