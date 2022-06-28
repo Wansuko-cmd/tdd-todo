@@ -13,6 +13,10 @@ import org.javalite.test.jspec.JSpec.the
 import project.*
 import QueryServiceException
 import ProjectUseCaseModel.Companion.toUseCaseModel
+import get.project.GetProjectQueryService
+import get.project.GetProjectUseCase
+import get.project.GetProjectUseCaseException
+import get.project.GetProjectUseCaseImpl
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

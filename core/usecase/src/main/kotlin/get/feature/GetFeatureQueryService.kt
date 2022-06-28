@@ -1,4 +1,4 @@
-package get
+package get.feature
 
 import QueryServiceException
 import com.wsr.apiresult.ApiResult

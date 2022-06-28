@@ -1,4 +1,4 @@
-package get
+package get.feature
 
 import FeatureUseCaseModel
 import com.wsr.apiresult.ApiResult

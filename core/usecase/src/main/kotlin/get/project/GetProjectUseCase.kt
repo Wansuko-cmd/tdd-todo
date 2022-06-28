@@ -1,4 +1,4 @@
-package get
+package get.project
 
 import ProjectUseCaseModel
 import com.wsr.apiresult.ApiResult

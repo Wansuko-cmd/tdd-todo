@@ -5,6 +5,10 @@ package get
 import FeatureUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import feature.*
+import get.feature.GetFeatureQueryService
+import get.feature.GetFeatureUseCase
+import get.feature.GetFeatureUseCaseException
+import get.feature.GetFeatureUseCaseImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

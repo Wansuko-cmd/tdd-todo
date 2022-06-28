@@ -1,4 +1,4 @@
-package get
+package get.task
 
 import TaskUseCaseModel
 import TaskUseCaseModel.Companion.toUseCaseModel
