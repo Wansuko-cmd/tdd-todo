@@ -1,0 +1,4 @@
+package task
+
+interface TaskRepository {
+}

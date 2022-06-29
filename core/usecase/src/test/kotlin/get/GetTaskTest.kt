@@ -6,9 +6,8 @@ import TaskUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import feature.*
 import get.task.GetTaskQueryService
-import get.task.GetTaskUseCase
 import get.task.GetTaskUseCaseException
-import get.task.GetTaskUseCaseImpl
+import get.task.GetTasksByFeatureIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -22,14 +21,14 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class GetTaskTest {
-    private lateinit var target: GetTaskUseCase
+    private lateinit var getTasksByFeatureUseCase: GetTasksByFeatureIdUseCase
     @MockK
     private lateinit var getTaskQueryService: GetTaskQueryService
 
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        target = GetTaskUseCaseImpl(getTaskQueryService)
+        getTasksByFeatureUseCase = GetTasksByFeatureIdUseCase(getTaskQueryService)
     }
 
     private val mockFeatureId = FeatureId("mockFeatureId")
@@ -48,14 +47,14 @@ class GetTaskTest {
     fun 特定のFeature関連のTaskを取得() = runBlocking {
         coEvery { getTaskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockData)
         val expected = ApiResult.Success(mockData.map { it.toUseCaseModel() })
-        the(target.getByFeatureId(mockFeatureId.value)).shouldBeEqual(expected)
+        the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
 
     @Test
     fun Task取得失敗時はFailureを返す() = runBlocking {
         coEvery { getTaskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
         val expected = ApiResult.Failure(GetTaskUseCaseException.DatabaseException("Error"))
-        the(target.getByFeatureId(mockFeatureId.value)).shouldBeEqual(expected)
+        the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
 
 
