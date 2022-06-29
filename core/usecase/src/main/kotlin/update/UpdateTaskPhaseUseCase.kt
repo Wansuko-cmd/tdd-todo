@@ -8,20 +8,20 @@ import task.TaskId
 import task.TaskRepository
 
 class UpdateTaskPhaseUseCase(
-    private val queryService: TaskQueryService,
-    private val repository: TaskRepository,
+    private val taskQueryService: TaskQueryService,
+    private val taskRepository: TaskRepository,
 ) {
     suspend operator fun invoke(
         taskId: TaskId,
         phase: TaskPhaseUseCaseDto,
     ): ApiResult<Unit, UpdateTaskPhaseUseCaseException> =
-        queryService.get(taskId)
+        taskQueryService.get(taskId)
             .mapBoth(
                 success = { task -> task.copyWithPhase(phase.toDomain()) },
                 failure = { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) },
             )
             .flatMap { task ->
-                repository
+                taskRepository
                     .update(task)
                     .mapFailure { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) }
             }
