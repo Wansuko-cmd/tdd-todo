@@ -1,7 +1,6 @@
 package update
 
-import com.wsr.apiresult.flatMap
-import com.wsr.apiresult.map
+import com.wsr.apiresult.*
 import dto.task.TaskPhaseUseCaseDto
 import dto.task.TaskPhaseUseCaseDto.Companion.toDomain
 import dto.task.TaskQueryService
@@ -15,7 +14,19 @@ class UpdateTaskPhaseUseCase(
     suspend operator fun invoke(
         taskId: TaskId,
         phase: TaskPhaseUseCaseDto,
-    ) = queryService.get(taskId)
-        .map { task -> task.copyWithPhase(phase.toDomain()) }
-        .flatMap { repository.update(it) }
+    ): ApiResult<Unit, UpdateTaskPhaseUseCaseException> =
+        queryService.get(taskId)
+            .mapBoth(
+                success = { task -> task.copyWithPhase(phase.toDomain()) },
+                failure = { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) },
+            )
+            .flatMap { task ->
+                repository
+                    .update(task)
+                    .mapFailure { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) }
+            }
+}
+
+sealed class UpdateTaskPhaseUseCaseException : Exception() {
+    data class DatabaseException(override val message: String?) : UpdateTaskPhaseUseCaseException()
 }

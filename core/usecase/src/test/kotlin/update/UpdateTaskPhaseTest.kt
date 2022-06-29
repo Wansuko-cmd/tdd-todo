@@ -2,6 +2,7 @@
 
 package update
 
+import RepositoryException
 import com.wsr.apiresult.ApiResult
 import dto.task.TaskPhaseUseCaseDto
 import dto.task.TaskQueryService
@@ -47,6 +48,14 @@ class UpdateTaskPhaseTest {
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Success(Unit)
         val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhaseUseCaseDto.Red)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
+    }
+
+    @Test
+    fun update失敗時にはFailureを返す() = runTest {
+        coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
+        coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
+        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhaseUseCaseDto.Red)
+        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskPhaseUseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest
