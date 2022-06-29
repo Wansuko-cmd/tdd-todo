@@ -1,6 +1,5 @@
 package update
 
-import com.wsr.apiresult.consume
 import com.wsr.apiresult.flatMap
 import com.wsr.apiresult.map
 import dto.task.TaskPhaseUseCaseDto
@@ -20,12 +19,3 @@ class UpdateTaskPhaseUseCase(
         .map { task -> task.copyWithPhase(phase.toDomain()) }
         .flatMap { repository.update(it) }
 }
-
-
-/**
- * .consume(
-success = { task ->
-val newTask = task.copyWithPhase(taskPhaseUseCaseDto.toDomain())
-repository.update(newTask)
-}
- */
