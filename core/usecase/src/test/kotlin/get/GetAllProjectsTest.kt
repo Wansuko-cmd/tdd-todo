@@ -14,23 +14,22 @@ import project.*
 import QueryServiceException
 import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import dto.project.ProjectQueryService
-import get.project.GetProjectUseCase
-import get.project.GetProjectUseCaseException
-import get.project.GetProjectUseCaseImpl
+import get.project.GetAllProjectsUseCaseException
+import get.project.GetAllProjectsUseCase
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class GetProjectTest {
+class GetAllProjectsTest {
 
-    private lateinit var target: GetProjectUseCase
+    private lateinit var getAllProjectsUseCase: GetAllProjectsUseCase
     @MockK
-    private lateinit var getProjectQueryService: ProjectQueryService
+    private lateinit var projectQueryService: ProjectQueryService
 
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        target = GetProjectUseCaseImpl(getProjectQueryService)
+        getAllProjectsUseCase = GetAllProjectsUseCase(projectQueryService)
     }
 
     private val mockData = List(5) { index ->
@@ -43,26 +42,26 @@ class GetProjectTest {
 
     @Test
     fun 全部プロジェクトを取得する() = runBlocking {
-        coEvery { getProjectQueryService.getAll() } returns ApiResult.Success(mockData)
+        coEvery { projectQueryService.getAll() } returns ApiResult.Success(mockData)
 
         val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
 
-        the(target.getAll()).shouldBeEqual(expected)
+        the(getAllProjectsUseCase()).shouldBeEqual(expected)
     }
 
     @Test
     fun プロジェクト取得失敗時はFailureを返す() = runBlocking {
         coEvery {
-            getProjectQueryService.getAll()
+            projectQueryService.getAll()
         } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
 
-        the(target.getAll())
-            .shouldBeEqual(ApiResult.Failure(GetProjectUseCaseException.DatabaseException("Error")))
+        the(getAllProjectsUseCase())
+            .shouldBeEqual(ApiResult.Failure(GetAllProjectsUseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest
     fun 呼び出し回数のカウント() {
-        coVerify(exactly = 1) { getProjectQueryService.getAll() }
-        confirmVerified(getProjectQueryService)
+        coVerify(exactly = 1) { projectQueryService.getAll() }
+        confirmVerified(projectQueryService)
     }
 }
