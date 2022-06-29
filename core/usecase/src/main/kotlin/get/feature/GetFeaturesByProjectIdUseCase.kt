@@ -7,10 +7,14 @@ import com.wsr.apiresult.mapBoth
 import dto.feature.FeatureQueryService
 import project.ProjectId
 
-class GetFeatureUseCaseImpl(private val queryService: FeatureQueryService) : GetFeatureUseCase {
-    override suspend fun getByProjectId(projectId: String): ApiResult<List<FeatureUseCaseDto>, Exception> =
-        queryService.getByProjectId(ProjectId(projectId)).mapBoth(
+class GetFeaturesByProjectIdUseCase(private val queryService: FeatureQueryService) {
+    suspend operator fun invoke(projectId: ProjectId): ApiResult<List<FeatureUseCaseDto>, Exception> =
+        queryService.getByProjectId(projectId).mapBoth(
             success = { features -> features.map { it.toUseCaseDto() } },
             failure = { GetFeatureUseCaseException.DatabaseException(it.message) },
         )
+}
+
+sealed class GetFeatureUseCaseException : Exception() {
+    data class DatabaseException(override val message: String?) : GetFeatureUseCaseException()
 }

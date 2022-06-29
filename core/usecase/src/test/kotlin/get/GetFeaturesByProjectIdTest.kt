@@ -6,9 +6,8 @@ import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
 import dto.feature.FeatureQueryService
-import get.feature.GetFeatureUseCase
 import get.feature.GetFeatureUseCaseException
-import get.feature.GetFeatureUseCaseImpl
+import get.feature.GetFeaturesByProjectIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -21,15 +20,15 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class GetFeatureTest {
-    private lateinit var target: GetFeatureUseCase
+class GetFeaturesByProjectIdTest {
+    private lateinit var getFeaturesByProjectIdUseCase: GetFeaturesByProjectIdUseCase
     @MockK
-    private lateinit var getFeatureQueryService: FeatureQueryService
+    private lateinit var featureQueryService: FeatureQueryService
 
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        target = GetFeatureUseCaseImpl(getFeatureQueryService)
+        getFeaturesByProjectIdUseCase = GetFeaturesByProjectIdUseCase(featureQueryService)
     }
 
     private val mockProjectId = ProjectId("mockProjectId")
@@ -46,22 +45,22 @@ class GetFeatureTest {
 
     @Test
     fun 特定のProject関連のFeatureを取得() = runBlocking {
-        coEvery { getFeatureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Success(mockData)
+        coEvery { featureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Success(mockData)
         val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
-        the(target.getByProjectId(mockProjectId.value)).shouldBeEqual(expected)
+        the(getFeaturesByProjectIdUseCase(mockProjectId)).shouldBeEqual(expected)
     }
 
     @Test
     fun Feature取得失敗時はFailureを返す() = runBlocking {
-        coEvery { getFeatureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
+        coEvery { featureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
         val expected = ApiResult.Failure(GetFeatureUseCaseException.DatabaseException("Error"))
-        the(target.getByProjectId(mockProjectId.value)).shouldBeEqual(expected)
+        the(getFeaturesByProjectIdUseCase(mockProjectId)).shouldBeEqual(expected)
     }
 
 
     @AfterTest
     fun 呼び出し回数のカウント() {
-        coVerify(exactly = 1) { getFeatureQueryService.getByProjectId(mockProjectId) }
-        confirmVerified(getFeatureQueryService)
+        coVerify(exactly = 1) { featureQueryService.getByProjectId(mockProjectId) }
+        confirmVerified(featureQueryService)
     }
 }
