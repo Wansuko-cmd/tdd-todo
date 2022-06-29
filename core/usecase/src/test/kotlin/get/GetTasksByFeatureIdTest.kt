@@ -23,12 +23,12 @@ import kotlin.test.Test
 class GetTasksByFeatureIdTest {
     private lateinit var getTasksByFeatureUseCase: GetTasksByFeatureIdUseCase
     @MockK
-    private lateinit var getTaskQueryService: TaskQueryService
+    private lateinit var taskQueryService: TaskQueryService
 
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        getTasksByFeatureUseCase = GetTasksByFeatureIdUseCase(getTaskQueryService)
+        getTasksByFeatureUseCase = GetTasksByFeatureIdUseCase(taskQueryService)
     }
 
     private val mockFeatureId = FeatureId("mockFeatureId")
@@ -45,14 +45,14 @@ class GetTasksByFeatureIdTest {
 
     @Test
     fun 特定のFeature関連のTaskを取得() = runBlocking {
-        coEvery { getTaskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockData)
+        coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockData)
         val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
 
     @Test
     fun Task取得失敗時はFailureを返す() = runBlocking {
-        coEvery { getTaskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
+        coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
         val expected = ApiResult.Failure(GetTaskUseCaseException.DatabaseException("Error"))
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
@@ -60,7 +60,7 @@ class GetTasksByFeatureIdTest {
 
     @AfterTest
     fun 呼び出し回数のカウント() {
-        coVerify(exactly = 1) { getTaskQueryService.getByFeatureId(mockFeatureId) }
-        confirmVerified(getTaskQueryService)
+        coVerify(exactly = 1) { taskQueryService.getByFeatureId(mockFeatureId) }
+        confirmVerified(taskQueryService)
     }
 }
