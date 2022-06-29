@@ -35,5 +35,12 @@ enum class TaskPhaseUseCaseDto {
             TaskPhase.Refactor -> Refactor
             TaskPhase.Done -> Done
         }
+        fun TaskPhaseUseCaseDto.toDomain() = when (this) {
+            Todo -> TaskPhase.Todo
+            Red -> TaskPhase.Red
+            Green -> TaskPhase.Green
+            Refactor -> TaskPhase.Refactor
+            Done -> TaskPhase.Done
+        }
     }
 }

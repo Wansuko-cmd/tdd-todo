@@ -1,2 +1,1 @@
-class RepositoryException {
-}
+sealed class RepositoryException : Exception()
