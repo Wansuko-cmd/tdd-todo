@@ -29,5 +29,9 @@ enum class FeaturePhaseUseCaseDto {
             FeaturePhase.Todo -> Todo
             FeaturePhase.Done -> Done
         }
+        fun FeaturePhaseUseCaseDto.toDomain() = when(this) {
+            Todo -> FeaturePhase.Todo
+            Done -> FeaturePhase.Done
+        }
     }
 }
