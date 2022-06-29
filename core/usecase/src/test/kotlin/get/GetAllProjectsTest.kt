@@ -8,7 +8,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.runBlocking
 import org.javalite.test.jspec.JSpec.the
 import project.*
 import QueryServiceException
@@ -16,10 +15,13 @@ import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import dto.project.ProjectQueryService
 import get.project.GetAllProjectsUseCaseException
 import get.project.GetAllProjectsUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetAllProjectsTest {
 
     private lateinit var getAllProjectsUseCase: GetAllProjectsUseCase
@@ -41,7 +43,7 @@ class GetAllProjectsTest {
     }
 
     @Test
-    fun 全部プロジェクトを取得する() = runBlocking {
+    fun 全部プロジェクトを取得する() = runTest {
         coEvery { projectQueryService.getAll() } returns ApiResult.Success(mockData)
 
         val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
@@ -50,7 +52,7 @@ class GetAllProjectsTest {
     }
 
     @Test
-    fun プロジェクト取得失敗時はFailureを返す() = runBlocking {
+    fun プロジェクト取得失敗時はFailureを返す() = runTest {
         coEvery {
             projectQueryService.getAll()
         } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))

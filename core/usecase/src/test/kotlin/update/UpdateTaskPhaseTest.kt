@@ -11,13 +11,15 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import task.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class UpdateTaskPhaseTest {
     private lateinit var updateTaskPhaseUseCase: UpdateTaskPhaseUseCase
     @MockK
@@ -40,7 +42,7 @@ class UpdateTaskPhaseTest {
     }
 
     @Test
-    fun 特定のTaskのPhaseの状態を変更() = runBlocking {
+    fun 特定のTaskのPhaseの状態を変更() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Success(Unit)
         val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhaseUseCaseDto.Red)

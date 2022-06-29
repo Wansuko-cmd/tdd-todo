@@ -13,13 +13,15 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import task.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetTasksByFeatureIdTest {
     private lateinit var getTasksByFeatureUseCase: GetTasksByFeatureIdUseCase
     @MockK
@@ -44,14 +46,14 @@ class GetTasksByFeatureIdTest {
     }
 
     @Test
-    fun 特定のFeature関連のTaskを取得() = runBlocking {
+    fun 特定のFeature関連のTaskを取得() = runTest {
         coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockData)
         val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
 
     @Test
-    fun Task取得失敗時はFailureを返す() = runBlocking {
+    fun Task取得失敗時はFailureを返す() = runTest {
         coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
         val expected = ApiResult.Failure(GetTaskUseCaseException.DatabaseException("Error"))
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
