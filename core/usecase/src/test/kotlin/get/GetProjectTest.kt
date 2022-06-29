@@ -12,7 +12,7 @@ import kotlinx.coroutines.runBlocking
 import org.javalite.test.jspec.JSpec.the
 import project.*
 import QueryServiceException
-import ProjectUseCaseModel.Companion.toUseCaseModel
+import dto.ProjectUseCaseModel.Companion.toUseCaseModel
 import get.project.GetProjectQueryService
 import get.project.GetProjectUseCase
 import get.project.GetProjectUseCaseException

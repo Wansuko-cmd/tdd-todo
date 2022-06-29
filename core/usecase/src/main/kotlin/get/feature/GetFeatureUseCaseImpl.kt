@@ -1,7 +1,7 @@
 package get.feature
 
-import FeatureUseCaseModel
-import FeatureUseCaseModel.Companion.toUseCaseModel
+import dto.FeatureUseCaseModel
+import dto.FeatureUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.mapBoth
 import project.ProjectId

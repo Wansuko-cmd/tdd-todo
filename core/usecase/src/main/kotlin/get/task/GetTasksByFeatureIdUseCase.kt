@@ -1,7 +1,7 @@
 package get.task
 
-import TaskUseCaseModel
-import TaskUseCaseModel.Companion.toUseCaseModel
+import dto.TaskUseCaseModel
+import dto.TaskUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.mapBoth
 import feature.FeatureId

@@ -1,4 +1,6 @@
-import FeaturePhaseUseCaseModel.Companion.toUseCaseModel
+package dto
+
+import dto.FeaturePhaseUseCaseModel.Companion.toUseCaseModel
 import feature.Feature
 import feature.FeaturePhase
 

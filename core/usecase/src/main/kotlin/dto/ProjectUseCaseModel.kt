@@ -1,3 +1,5 @@
+package dto
+
 import project.Project
 
 data class ProjectUseCaseModel(

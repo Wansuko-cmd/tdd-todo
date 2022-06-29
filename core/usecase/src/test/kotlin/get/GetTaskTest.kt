@@ -2,7 +2,7 @@
 
 package get
 
-import TaskUseCaseModel.Companion.toUseCaseModel
+import dto.TaskUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import feature.*
 import get.task.GetTaskQueryService

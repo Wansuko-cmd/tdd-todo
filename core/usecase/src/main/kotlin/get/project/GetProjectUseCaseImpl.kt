@@ -1,7 +1,7 @@
 package get.project
 
-import ProjectUseCaseModel
-import ProjectUseCaseModel.Companion.toUseCaseModel
+import dto.ProjectUseCaseModel
+import dto.ProjectUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.mapBoth
 

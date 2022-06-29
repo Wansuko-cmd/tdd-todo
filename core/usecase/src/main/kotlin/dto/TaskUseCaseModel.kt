@@ -1,4 +1,6 @@
-import TaskPhaseUseCaseModel.Companion.toUseCaseModel
+package dto
+
+import dto.TaskPhaseUseCaseModel.Companion.toUseCaseModel
 import task.Task
 import task.TaskPhase
 

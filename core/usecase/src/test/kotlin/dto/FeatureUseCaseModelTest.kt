@@ -1,7 +1,9 @@
 @file:Suppress("NonAsciiCharacters", "TestFunctionName")
 
-import FeaturePhaseUseCaseModel.Companion.toUseCaseModel
-import FeatureUseCaseModel.Companion.toUseCaseModel
+package dto
+
+import dto.FeaturePhaseUseCaseModel.Companion.toUseCaseModel
+import dto.FeatureUseCaseModel.Companion.toUseCaseModel
 import feature.*
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test

@@ -2,7 +2,7 @@
 
 package get
 
-import FeatureUseCaseModel.Companion.toUseCaseModel
+import dto.FeatureUseCaseModel.Companion.toUseCaseModel
 import com.wsr.apiresult.ApiResult
 import feature.*
 import get.feature.GetFeatureQueryService
