@@ -20,7 +20,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class GetTaskTest {
+class GetTasksByFeatureIdTest {
     private lateinit var getTasksByFeatureUseCase: GetTasksByFeatureIdUseCase
     @MockK
     private lateinit var getTaskQueryService: TaskQueryService
