@@ -2,8 +2,9 @@
 
 package dto
 
-import dto.TaskPhaseUseCaseDto.Companion.toUseCaseDto
-import dto.TaskUseCaseDto.Companion.toUseCaseDto
+import dto.task.TaskPhaseUseCaseDto.Companion.toUseCaseDto
+import dto.task.TaskUseCaseDto
+import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import feature.*
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test

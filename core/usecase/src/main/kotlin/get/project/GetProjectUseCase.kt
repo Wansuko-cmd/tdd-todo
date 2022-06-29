@@ -1,6 +1,6 @@
 package get.project
 
-import dto.ProjectUseCaseDto
+import dto.project.ProjectUseCaseDto
 import com.wsr.apiresult.ApiResult
 
 interface GetProjectUseCase {

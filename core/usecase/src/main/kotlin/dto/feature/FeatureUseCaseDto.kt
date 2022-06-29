@@ -1,6 +1,6 @@
-package dto
+package dto.feature
 
-import dto.FeaturePhaseUseCaseDto.Companion.toUseCaseDto
+import dto.feature.FeaturePhaseUseCaseDto.Companion.toUseCaseDto
 import feature.Feature
 import feature.FeaturePhase
 

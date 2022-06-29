@@ -2,10 +2,10 @@
 
 package get
 
-import dto.FeatureUseCaseDto.Companion.toUseCaseDto
+import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
-import get.feature.GetFeatureQueryService
+import dto.feature.FeatureQueryService
 import get.feature.GetFeatureUseCase
 import get.feature.GetFeatureUseCaseException
 import get.feature.GetFeatureUseCaseImpl
@@ -24,7 +24,7 @@ import kotlin.test.Test
 class GetFeatureTest {
     private lateinit var target: GetFeatureUseCase
     @MockK
-    private lateinit var getFeatureQueryService: GetFeatureQueryService
+    private lateinit var getFeatureQueryService: FeatureQueryService
 
     @BeforeTest
     fun setup() {

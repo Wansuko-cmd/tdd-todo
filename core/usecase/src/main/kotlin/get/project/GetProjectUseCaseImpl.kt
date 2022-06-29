@@ -1,11 +1,12 @@
 package get.project
 
-import dto.ProjectUseCaseDto
-import dto.ProjectUseCaseDto.Companion.toUseCaseDto
+import dto.project.ProjectUseCaseDto
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.mapBoth
+import dto.project.ProjectQueryService
 
-class GetProjectUseCaseImpl(private val queryService: GetProjectQueryService) : GetProjectUseCase {
+class GetProjectUseCaseImpl(private val queryService: ProjectQueryService) : GetProjectUseCase {
     override suspend fun getAll(): ApiResult<List<ProjectUseCaseDto>, GetProjectUseCaseException> =
         queryService.getAll().mapBoth(
             success = { projects -> projects.map { it.toUseCaseDto() } },

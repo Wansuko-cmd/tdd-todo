@@ -1,6 +1,6 @@
-package dto
+package dto.task
 
-import dto.TaskPhaseUseCaseDto.Companion.toUseCaseDto
+import dto.task.TaskPhaseUseCaseDto.Companion.toUseCaseDto
 import task.Task
 import task.TaskPhase
 

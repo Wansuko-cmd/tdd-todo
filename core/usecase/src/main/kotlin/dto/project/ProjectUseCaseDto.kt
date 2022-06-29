@@ -1,4 +1,4 @@
-package dto
+package dto.project
 
 import project.Project
 

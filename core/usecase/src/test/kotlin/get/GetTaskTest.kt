@@ -2,10 +2,10 @@
 
 package get
 
-import dto.TaskUseCaseDto.Companion.toUseCaseDto
+import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
-import get.task.GetTaskQueryService
+import dto.task.TaskQueryService
 import get.task.GetTaskUseCaseException
 import get.task.GetTasksByFeatureIdUseCase
 import io.mockk.MockKAnnotations
@@ -23,7 +23,7 @@ import kotlin.test.Test
 class GetTaskTest {
     private lateinit var getTasksByFeatureUseCase: GetTasksByFeatureIdUseCase
     @MockK
-    private lateinit var getTaskQueryService: GetTaskQueryService
+    private lateinit var getTaskQueryService: TaskQueryService
 
     @BeforeTest
     fun setup() {

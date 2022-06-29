@@ -1,6 +1,6 @@
 package get.feature
 
-import dto.FeatureUseCaseDto
+import dto.feature.FeatureUseCaseDto
 import com.wsr.apiresult.ApiResult
 
 interface GetFeatureUseCase {

@@ -2,7 +2,8 @@
 
 package dto
 
-import dto.ProjectUseCaseDto.Companion.toUseCaseDto
+import dto.project.ProjectUseCaseDto
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import org.javalite.test.jspec.JSpec.the
 import project.Project
 import project.ProjectDescription

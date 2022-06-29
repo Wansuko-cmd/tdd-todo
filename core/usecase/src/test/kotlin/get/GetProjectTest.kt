@@ -12,8 +12,8 @@ import kotlinx.coroutines.runBlocking
 import org.javalite.test.jspec.JSpec.the
 import project.*
 import QueryServiceException
-import dto.ProjectUseCaseDto.Companion.toUseCaseDto
-import get.project.GetProjectQueryService
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
+import dto.project.ProjectQueryService
 import get.project.GetProjectUseCase
 import get.project.GetProjectUseCaseException
 import get.project.GetProjectUseCaseImpl
@@ -25,7 +25,7 @@ class GetProjectTest {
 
     private lateinit var target: GetProjectUseCase
     @MockK
-    private lateinit var getProjectQueryService: GetProjectQueryService
+    private lateinit var getProjectQueryService: ProjectQueryService
 
     @BeforeTest
     fun setup() {
