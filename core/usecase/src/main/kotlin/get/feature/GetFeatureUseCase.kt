@@ -1,10 +1,10 @@
 package get.feature
 
-import dto.FeatureUseCaseModel
+import dto.FeatureUseCaseDto
 import com.wsr.apiresult.ApiResult
 
 interface GetFeatureUseCase {
-    suspend fun getByProjectId(projectId: String): ApiResult<List<FeatureUseCaseModel>, Exception>
+    suspend fun getByProjectId(projectId: String): ApiResult<List<FeatureUseCaseDto>, Exception>
 }
 
 sealed class GetFeatureUseCaseException : Exception() {

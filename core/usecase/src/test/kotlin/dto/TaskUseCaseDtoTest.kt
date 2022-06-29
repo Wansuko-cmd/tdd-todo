@@ -2,14 +2,14 @@
 
 package dto
 
-import dto.TaskPhaseUseCaseModel.Companion.toUseCaseModel
-import dto.TaskUseCaseModel.Companion.toUseCaseModel
+import dto.TaskPhaseUseCaseDto.Companion.toUseCaseDto
+import dto.TaskUseCaseDto.Companion.toUseCaseDto
 import feature.*
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test
 import task.*
 
-class TaskUseCaseModelTest {
+class TaskUseCaseDtoTest {
 
     private val task = Task(
         id = TaskId("mockId"),
@@ -21,12 +21,12 @@ class TaskUseCaseModelTest {
 
     @Test
     fun Featureから変換可能() {
-        val expected = TaskUseCaseModel(
+        val expected = TaskUseCaseDto(
             id = task.id.value,
             title = task.title.value,
             description = task.description.value,
-            phase = task.phase.toUseCaseModel(),
+            phase = task.phase.toUseCaseDto(),
         )
-        the(task.toUseCaseModel()).shouldBeEqual(expected)
+        the(task.toUseCaseDto()).shouldBeEqual(expected)
     }
 }

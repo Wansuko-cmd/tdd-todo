@@ -1,26 +1,26 @@
 package dto
 
-import dto.TaskPhaseUseCaseModel.Companion.toUseCaseModel
+import dto.TaskPhaseUseCaseDto.Companion.toUseCaseDto
 import task.Task
 import task.TaskPhase
 
-data class TaskUseCaseModel(
+data class TaskUseCaseDto(
     val id: String,
     val title: String,
     val description: String,
-    val phase: TaskPhaseUseCaseModel,
+    val phase: TaskPhaseUseCaseDto,
 ) {
     companion object {
-        fun Task.toUseCaseModel() = TaskUseCaseModel(
+        fun Task.toUseCaseDto() = TaskUseCaseDto(
             id = id.value,
             title = title.value,
             description = description.value,
-            phase = phase.toUseCaseModel(),
+            phase = phase.toUseCaseDto(),
         )
     }
 }
 
-enum class TaskPhaseUseCaseModel {
+enum class TaskPhaseUseCaseDto {
     Todo,
     Red,
     Green,
@@ -28,7 +28,7 @@ enum class TaskPhaseUseCaseModel {
     Done;
 
     companion object {
-        fun TaskPhase.toUseCaseModel() = when (this) {
+        fun TaskPhase.toUseCaseDto() = when (this) {
             TaskPhase.Todo -> Todo
             TaskPhase.Red -> Red
             TaskPhase.Green -> Green

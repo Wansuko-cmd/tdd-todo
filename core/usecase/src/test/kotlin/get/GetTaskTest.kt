@@ -2,7 +2,7 @@
 
 package get
 
-import dto.TaskUseCaseModel.Companion.toUseCaseModel
+import dto.TaskUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
 import get.task.GetTaskQueryService
@@ -46,7 +46,7 @@ class GetTaskTest {
     @Test
     fun 特定のFeature関連のTaskを取得() = runBlocking {
         coEvery { getTaskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockData)
-        val expected = ApiResult.Success(mockData.map { it.toUseCaseModel() })
+        val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
 

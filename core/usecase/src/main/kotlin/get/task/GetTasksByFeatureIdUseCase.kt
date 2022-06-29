@@ -1,15 +1,15 @@
 package get.task
 
-import dto.TaskUseCaseModel
-import dto.TaskUseCaseModel.Companion.toUseCaseModel
+import dto.TaskUseCaseDto
+import dto.TaskUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.mapBoth
 import feature.FeatureId
 
 class GetTasksByFeatureIdUseCase(private val queryService: GetTaskQueryService) {
-    suspend operator fun invoke(featureId: FeatureId): ApiResult<List<TaskUseCaseModel>, GetTaskUseCaseException> =
+    suspend operator fun invoke(featureId: FeatureId): ApiResult<List<TaskUseCaseDto>, GetTaskUseCaseException> =
         queryService.getByFeatureId(featureId).mapBoth(
-            success = { tasks -> tasks.map { it.toUseCaseModel() } },
+            success = { tasks -> tasks.map { it.toUseCaseDto() } },
             failure = { GetTaskUseCaseException.DatabaseException(it.message) }
         )
 }

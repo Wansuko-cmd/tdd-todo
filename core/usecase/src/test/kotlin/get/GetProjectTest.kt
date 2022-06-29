@@ -12,7 +12,7 @@ import kotlinx.coroutines.runBlocking
 import org.javalite.test.jspec.JSpec.the
 import project.*
 import QueryServiceException
-import dto.ProjectUseCaseModel.Companion.toUseCaseModel
+import dto.ProjectUseCaseDto.Companion.toUseCaseDto
 import get.project.GetProjectQueryService
 import get.project.GetProjectUseCase
 import get.project.GetProjectUseCaseException
@@ -45,7 +45,7 @@ class GetProjectTest {
     fun 全部プロジェクトを取得する() = runBlocking {
         coEvery { getProjectQueryService.getAll() } returns ApiResult.Success(mockData)
 
-        val expected = ApiResult.Success(mockData.map { it.toUseCaseModel() })
+        val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
 
         the(target.getAll()).shouldBeEqual(expected)
     }

@@ -2,7 +2,7 @@
 
 package get
 
-import dto.FeatureUseCaseModel.Companion.toUseCaseModel
+import dto.FeatureUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
 import get.feature.GetFeatureQueryService
@@ -47,7 +47,7 @@ class GetFeatureTest {
     @Test
     fun 特定のProject関連のFeatureを取得() = runBlocking {
         coEvery { getFeatureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Success(mockData)
-        val expected = ApiResult.Success(mockData.map { it.toUseCaseModel() })
+        val expected = ApiResult.Success(mockData.map { it.toUseCaseDto() })
         the(target.getByProjectId(mockProjectId.value)).shouldBeEqual(expected)
     }
 

@@ -1,31 +1,31 @@
 package dto
 
-import dto.FeaturePhaseUseCaseModel.Companion.toUseCaseModel
+import dto.FeaturePhaseUseCaseDto.Companion.toUseCaseDto
 import feature.Feature
 import feature.FeaturePhase
 
-data class FeatureUseCaseModel(
+data class FeatureUseCaseDto(
     val id: String,
     val title: String,
     val description: String,
-    val phase: FeaturePhaseUseCaseModel,
+    val phase: FeaturePhaseUseCaseDto,
 ) {
     companion object {
-        fun Feature.toUseCaseModel() = FeatureUseCaseModel(
+        fun Feature.toUseCaseDto() = FeatureUseCaseDto(
             id = id.value,
             title = title.value,
             description = description.value,
-            phase = phase.toUseCaseModel(),
+            phase = phase.toUseCaseDto(),
         )
     }
 }
 
-enum class FeaturePhaseUseCaseModel {
+enum class FeaturePhaseUseCaseDto {
     Todo,
     Done;
 
     companion object {
-        fun FeaturePhase.toUseCaseModel() = when(this) {
+        fun FeaturePhase.toUseCaseDto() = when(this) {
             FeaturePhase.Todo -> Todo
             FeaturePhase.Done -> Done
         }
