@@ -42,7 +42,7 @@ class UpdateTaskPhaseTest {
     }
 
     @Test
-    fun 特定のTaskのPhaseの状態を変更() = runTest {
+    fun 特定のTaskのPhaseを更新() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Success(Unit)
         val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
