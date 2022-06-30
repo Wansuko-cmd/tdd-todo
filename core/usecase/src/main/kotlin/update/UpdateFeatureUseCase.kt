@@ -2,15 +2,18 @@ package update
 
 import com.wsr.apiresult.*
 import dto.feature.FeatureQueryService
-import feature.Feature
-import feature.FeatureId
-import feature.FeaturePhase
-import feature.FeatureRepository
+import feature.*
 
 class UpdateFeaturePhaseUseCase(
     private val featureQueryService: FeatureQueryService,
     private val featureRepository: FeatureRepository,
 ) {
+    suspend operator fun invoke(
+        featureId: FeatureId,
+        title: FeatureTitle,
+    ): ApiResult<Unit, UpdateFeatureUseCaseException> =
+        update(featureId) { feature -> feature.copy(title = title) }
+
     suspend operator fun invoke(
         featureId: FeatureId,
         phase: FeaturePhase,
