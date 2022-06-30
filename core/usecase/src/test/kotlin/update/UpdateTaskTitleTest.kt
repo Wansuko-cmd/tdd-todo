@@ -31,6 +31,8 @@ class UpdateTaskTitleTest {
         phase = TaskPhase.Todo,
     )
 
+    private val newTitle = TaskTitle("newTitle")
+
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
@@ -39,12 +41,21 @@ class UpdateTaskTitleTest {
 
     @Test
     fun 特定のTaskのPhaseを更新() = runTest {
-        val newTitle = TaskTitle("newTitle")
-
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copy(title = newTitle)) } returns ApiResult.Success(Unit)
 
         val result = updateTaskUseCase(taskId = mockTask.id, title = newTitle)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
+    }
+
+    @Test
+    fun update失敗時にはFailureを返す() = runTest {
+        coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
+        coEvery {
+            taskRepository.update(mockTask.copy(title = newTitle))
+        } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
+
+        val result = updateTaskUseCase(taskId = mockTask.id, title = newTitle)
+        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
     }
 }
