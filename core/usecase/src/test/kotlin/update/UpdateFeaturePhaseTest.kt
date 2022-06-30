@@ -55,7 +55,7 @@ class UpdateFeaturePhaseTest {
             featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done))
         } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
         val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, phase = FeaturePhase.Done)
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeaturePhaseUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest
