@@ -2,7 +2,6 @@
 
 package dto
 
-import dto.feature.FeaturePhaseUseCaseDto.Companion.toUseCaseDto
 import dto.feature.FeatureUseCaseDto
 import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import feature.*
@@ -26,7 +25,7 @@ class FeatureUseCaseDtoTest {
             id = feature.id.value,
             title = feature.title.value,
             description = feature.description.value,
-            phase = feature.phase.toUseCaseDto(),
+            phase = feature.phase,
         )
         the(feature.toUseCaseDto()).shouldBeEqual(expected)
     }

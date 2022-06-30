@@ -3,7 +3,6 @@
 package update
 
 import com.wsr.apiresult.ApiResult
-import dto.feature.FeaturePhaseUseCaseDto
 import dto.feature.FeatureQueryService
 import feature.*
 import io.mockk.MockKAnnotations
@@ -15,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import project.ProjectId
-import task.TaskPhase
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -46,7 +44,7 @@ class UpdateFeaturePhaseTest {
     fun 特定のFeatureのPhaseを更新() = runTest {
         coEvery { featureQueryService.get(mockData.id) } returns ApiResult.Success(mockData)
         coEvery { featureRepository.update(mockData.copyWithPhase(FeaturePhase.Done)) } returns ApiResult.Success(Unit)
-        val result = updateFeaturePhaseUseCase(mockData.id, FeaturePhaseUseCaseDto.Done)
+        val result = updateFeaturePhaseUseCase(mockData.id, FeaturePhase.Done)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
