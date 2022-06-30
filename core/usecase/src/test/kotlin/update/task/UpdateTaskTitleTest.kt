@@ -1,6 +1,6 @@
 @file:Suppress("NonAsciiCharacters", "TestFunctionName")
 
-package update
+package update.task
 
 import com.wsr.apiresult.ApiResult
 import dto.task.TaskQueryService
@@ -14,6 +14,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import task.*
+import update.UpdateTaskUseCase
+import update.UpdateTaskUseCaseException
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

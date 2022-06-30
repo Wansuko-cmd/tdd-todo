@@ -1,6 +1,6 @@
 @file:Suppress("NonAsciiCharacters", "TestFunctionName")
 
-package update
+package update.feature
 
 import com.wsr.apiresult.ApiResult
 import dto.feature.FeatureQueryService
@@ -14,12 +14,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import project.ProjectId
+import update.UpdateFeaturePhaseUseCase
+import update.UpdateFeatureUseCaseException
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class UpdateFeatureTitleTest {
+class UpdateFeaturePhaseTest {
     private lateinit var updateFeaturePhaseUseCase: UpdateFeaturePhaseUseCase
     @MockK
     private lateinit var featureQueryService: FeatureQueryService
@@ -34,8 +36,6 @@ class UpdateFeatureTitleTest {
         phase = FeaturePhase.Todo,
     )
 
-    private val newTitle = FeatureTitle("newTitle")
-
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
@@ -45,9 +45,8 @@ class UpdateFeatureTitleTest {
     @Test
     fun 特定のFeatureのPhaseを更新() = runTest {
         coEvery { featureQueryService.get(mockFeature.id) } returns ApiResult.Success(mockFeature)
-        coEvery { featureRepository.update(mockFeature.copy(title = newTitle)) } returns ApiResult.Success(Unit)
-
-        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = newTitle)
+        coEvery { featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done)) } returns ApiResult.Success(Unit)
+        val result = updateFeaturePhaseUseCase(mockFeature.id, FeaturePhase.Done)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
@@ -55,10 +54,9 @@ class UpdateFeatureTitleTest {
     fun update失敗時にはFailureを返す() = runTest {
         coEvery { featureQueryService.get(mockFeature.id) } returns ApiResult.Success(mockFeature)
         coEvery {
-            featureRepository.update(mockFeature.copy(title = newTitle))
+            featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done))
         } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
-
-        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = newTitle)
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, phase = FeaturePhase.Done)
         the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))
     }
 
@@ -66,7 +64,7 @@ class UpdateFeatureTitleTest {
     fun 呼び出し回数のカウント() {
         coVerify(exactly = 1) {
             featureQueryService.get(mockFeature.id)
-            featureRepository.update(mockFeature.copy(title = newTitle))
+            featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done))
         }
         confirmVerified(featureQueryService, featureRepository)
     }
