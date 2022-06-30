@@ -7,11 +7,14 @@ import dto.task.TaskQueryService
 import feature.FeatureId
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.confirmVerified
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import task.*
+import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -57,5 +60,14 @@ class UpdateTaskTitleTest {
 
         val result = updateTaskUseCase(taskId = mockTask.id, title = newTitle)
         the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
+    }
+
+    @AfterTest
+    fun 呼び出し回数のカウント() {
+        coVerify(exactly = 1) {
+            taskQueryService.get(mockTask.id)
+            taskRepository.update(mockTask.copy(title = newTitle))
+        }
+        confirmVerified(taskQueryService, taskRepository)
     }
 }
