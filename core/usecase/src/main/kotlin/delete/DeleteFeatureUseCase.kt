@@ -17,5 +17,6 @@ class DeleteFeatureUseCase(
         featureRepository.delete(featureId)
             .mapFailure { it.toUseCaseException() }
             .flatMap { taskQueryService.getByFeatureId(featureId).mapFailure { it.toUseCaseException() } }
-            .map { tasks -> tasks.map { taskRepository.delete(it.id) } }
+            .map { tasks -> tasks.map { it.id } }
+            .map { taskIds -> taskRepository.delete(taskIds) }
 }
