@@ -65,7 +65,7 @@ class UpdateFeatureTitleTest {
     }
 
     @AfterTest
-    fun 呼び出し回数のカウント() {
+    fun 関連するメソッド呼び出しの回数の確認() {
         coVerify(exactly = 1) {
             featureQueryService.get(mockFeature.id)
             featureRepository.update(mockFeature.copy(title = newTitle))
