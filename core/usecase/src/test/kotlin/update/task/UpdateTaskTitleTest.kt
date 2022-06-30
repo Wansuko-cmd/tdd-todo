@@ -45,7 +45,7 @@ class UpdateTaskTitleTest {
     }
 
     @Test
-    fun 特定のTaskのPhaseを更新() = runTest {
+    fun 特定のTaskのTitleを更新() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copy(title = newTitle)) } returns ApiResult.Success(Unit)
 

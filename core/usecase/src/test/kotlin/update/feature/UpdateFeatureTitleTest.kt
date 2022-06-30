@@ -45,7 +45,7 @@ class UpdateFeatureTitleTest {
     }
 
     @Test
-    fun 特定のFeatureのPhaseを更新() = runTest {
+    fun 特定のFeatureのTitleを更新() = runTest {
         coEvery { featureQueryService.get(mockFeature.id) } returns ApiResult.Success(mockFeature)
         coEvery { featureRepository.update(mockFeature.copy(title = newTitle)) } returns ApiResult.Success(Unit)
 
