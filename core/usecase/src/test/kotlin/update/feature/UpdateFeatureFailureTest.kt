@@ -53,6 +53,12 @@ class UpdateFeatureFailureTest {
     }
 
     @Test
+    fun descriptionの更新失敗時() = runTest {
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, description = FeatureDescription("newDescription"))
+        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))
+    }
+
+    @Test
     fun phaseの更新失敗時() = runTest {
         val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, phase = FeaturePhase.Done)
         the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))

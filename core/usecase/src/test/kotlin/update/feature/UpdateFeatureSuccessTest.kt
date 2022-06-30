@@ -51,6 +51,12 @@ class UpdateFeatureSuccessTest {
     }
 
     @Test
+    fun 特定のFeatureのDescriptionを更新() = runTest {
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, description = FeatureDescription("newDescription"))
+        the(result).shouldBeEqual(ApiResult.Success(Unit))
+    }
+
+    @Test
     fun 特定のFeatureのPhaseを更新() = runTest {
         val result = updateFeaturePhaseUseCase(mockFeature.id, FeaturePhase.Done)
         the(result).shouldBeEqual(ApiResult.Success(Unit))

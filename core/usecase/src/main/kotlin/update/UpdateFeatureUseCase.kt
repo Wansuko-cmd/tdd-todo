@@ -16,6 +16,12 @@ class UpdateFeaturePhaseUseCase(
 
     suspend operator fun invoke(
         featureId: FeatureId,
+        description: FeatureDescription,
+    ): ApiResult<Unit, UpdateFeatureUseCaseException> =
+        update(featureId) { feature -> feature.copy(description = description) }
+
+    suspend operator fun invoke(
+        featureId: FeatureId,
         phase: FeaturePhase,
     ): ApiResult<Unit, UpdateFeatureUseCaseException> =
         update(featureId) { feature -> feature.copyWithPhase(phase) }
