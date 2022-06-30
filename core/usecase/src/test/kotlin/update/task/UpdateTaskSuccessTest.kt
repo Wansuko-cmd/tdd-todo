@@ -50,19 +50,19 @@ class UpdateTaskSuccessTest {
     }
 
     @Test
-    fun 特定のTaskのPhaseを更新() = runTest {
-        val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
-    }
-
-    @Test
     fun 特定のTaskのDescriptionを更新() = runTest {
         val result = updateTaskUseCase(taskId = mockTask.id, description = TaskDescription("newDescription"))
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
+    @Test
+    fun 特定のTaskのPhaseを更新() = runTest {
+        val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
+        the(result).shouldBeEqual(ApiResult.Success(Unit))
+    }
+
     @AfterTest
-    fun 呼び出し回数のカウント() {
+    fun 関連するメソッド呼び出しの回数の確認() {
         coVerify(exactly = 1) {
             taskQueryService.get(mockTask.id)
             taskRepository.update(any())

@@ -64,7 +64,7 @@ class UpdateTaskFailureTest {
     }
 
     @AfterTest
-    fun 呼び出し回数のカウント() {
+    fun 関連するメソッド呼び出しの回数の確認() {
         coVerify(exactly = 1) {
             taskQueryService.get(mockTask.id)
             taskRepository.update(any())
