@@ -5,25 +5,19 @@ import dto.task.TaskQueryService
 import task.TaskId
 import task.TaskPhase
 import task.TaskRepository
+import task.TaskTitle
 
 class UpdateTaskPhaseUseCase(
-    private val taskQueryService: TaskQueryService,
-    private val taskRepository: TaskRepository,
+    taskQueryService: TaskQueryService,
+    taskRepository: TaskRepository,
 ) {
+
+    private val updateTaskUseCase = UpdateTaskUseCase(taskQueryService, taskRepository)
     suspend operator fun invoke(
         taskId: TaskId,
         phase: TaskPhase,
     ): ApiResult<Unit, UpdateTaskPhaseUseCaseException> =
-        taskQueryService.get(taskId)
-            .mapBoth(
-                success = { task -> task.copyWithPhase(phase) },
-                failure = { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) },
-            )
-            .flatMap { task ->
-                taskRepository
-                    .update(task)
-                    .mapFailure { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) }
-            }
+        updateTaskUseCase.update(taskId) { task -> task.copyWithPhase(phase) }
 }
 
 sealed class UpdateTaskPhaseUseCaseException : Exception() {
