@@ -9,6 +9,6 @@ class FeaturePhaseTest {
     @Test
     fun FeaturePhaseの等価性のテスト() {
         the(FeaturePhase.Todo).shouldBeEqual(FeaturePhase.Todo)
-        the(FeaturePhase.Todo).shouldNotBeEqual(FeaturePhase.Done)
+        the(FeaturePhase.InProgress).shouldNotBeEqual(FeaturePhase.Done)
     }
 }
