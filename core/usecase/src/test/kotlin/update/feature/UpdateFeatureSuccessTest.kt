@@ -14,14 +14,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import project.ProjectId
-import update.UpdateFeaturePhaseUseCase
+import update.UpdateFeatureUseCase
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UpdateFeatureSuccessTest {
-    private lateinit var updateFeaturePhaseUseCase: UpdateFeaturePhaseUseCase
+    private lateinit var updateFeaturePhaseUseCase: UpdateFeatureUseCase
     @MockK
     private lateinit var featureQueryService: FeatureQueryService
     @MockK
@@ -40,7 +40,7 @@ class UpdateFeatureSuccessTest {
         MockKAnnotations.init(this)
         coEvery { featureQueryService.get(mockFeature.id) } returns ApiResult.Success(mockFeature)
         coEvery { featureRepository.update(any()) } returns ApiResult.Success(Unit)
-        updateFeaturePhaseUseCase = UpdateFeaturePhaseUseCase(featureQueryService, featureRepository)
+        updateFeaturePhaseUseCase = UpdateFeatureUseCase(featureQueryService, featureRepository)
     }
 
     @Test

@@ -6,7 +6,7 @@ import dto.feature.FeatureQueryService
 import feature.*
 import toUseCaseException
 
-class UpdateFeaturePhaseUseCase(
+class UpdateFeatureUseCase(
     private val featureQueryService: FeatureQueryService,
     private val featureRepository: FeatureRepository,
 ) {
