@@ -54,7 +54,7 @@ class UpdateTaskPhaseTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
         val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskPhaseUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest
