@@ -17,7 +17,7 @@ import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UpdateTaskTitleTest {
-    private lateinit var updateTaskTitleUseCase: UpdateTaskTitleUseCase
+    private lateinit var updateTaskUseCase: UpdateTaskUseCase
     @MockK
     private lateinit var taskQueryService: TaskQueryService
     @MockK
@@ -34,7 +34,7 @@ class UpdateTaskTitleTest {
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        updateTaskTitleUseCase = UpdateTaskTitleUseCase(taskQueryService, taskRepository)
+        updateTaskUseCase = UpdateTaskUseCase(taskQueryService, taskRepository)
     }
 
     @Test
@@ -44,7 +44,7 @@ class UpdateTaskTitleTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copy(title = newTitle)) } returns ApiResult.Success(Unit)
 
-        val result = updateTaskTitleUseCase(taskId = mockTask.id, title = newTitle)
+        val result = updateTaskUseCase(taskId = mockTask.id, title = newTitle)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 }

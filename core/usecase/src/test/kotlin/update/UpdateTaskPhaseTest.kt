@@ -21,7 +21,7 @@ import kotlin.test.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UpdateTaskPhaseTest {
-    private lateinit var updateTaskPhaseUseCase: UpdateTaskPhaseUseCase
+    private lateinit var updateTaskUseCase: UpdateTaskUseCase
     @MockK
     private lateinit var taskQueryService: TaskQueryService
     @MockK
@@ -38,14 +38,14 @@ class UpdateTaskPhaseTest {
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        updateTaskPhaseUseCase = UpdateTaskPhaseUseCase(taskQueryService, taskRepository)
+        updateTaskUseCase = UpdateTaskUseCase(taskQueryService, taskRepository)
     }
 
     @Test
     fun 特定のTaskのPhaseを更新() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Success(Unit)
-        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
+        val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
@@ -53,7 +53,7 @@ class UpdateTaskPhaseTest {
     fun update失敗時にはFailureを返す() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
-        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
+        val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
         the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskPhaseUseCaseException.DatabaseException("Error")))
     }
 
