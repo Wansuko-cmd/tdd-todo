@@ -4,7 +4,6 @@ package update
 
 import RepositoryException
 import com.wsr.apiresult.ApiResult
-import dto.task.TaskPhaseUseCaseDto
 import dto.task.TaskQueryService
 import feature.FeatureId
 import io.mockk.MockKAnnotations
@@ -46,7 +45,7 @@ class UpdateTaskPhaseTest {
     fun 特定のTaskのPhaseの状態を変更() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Success(Unit)
-        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhaseUseCaseDto.Red)
+        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
@@ -54,7 +53,7 @@ class UpdateTaskPhaseTest {
     fun update失敗時にはFailureを返す() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
-        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhaseUseCaseDto.Red)
+        val result = updateTaskPhaseUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
         the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskPhaseUseCaseException.DatabaseException("Error")))
     }
 

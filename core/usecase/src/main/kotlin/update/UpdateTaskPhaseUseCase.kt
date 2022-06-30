@@ -1,10 +1,9 @@
 package update
 
 import com.wsr.apiresult.*
-import dto.task.TaskPhaseUseCaseDto
-import dto.task.TaskPhaseUseCaseDto.Companion.toDomain
 import dto.task.TaskQueryService
 import task.TaskId
+import task.TaskPhase
 import task.TaskRepository
 
 class UpdateTaskPhaseUseCase(
@@ -13,11 +12,11 @@ class UpdateTaskPhaseUseCase(
 ) {
     suspend operator fun invoke(
         taskId: TaskId,
-        phase: TaskPhaseUseCaseDto,
+        phase: TaskPhase,
     ): ApiResult<Unit, UpdateTaskPhaseUseCaseException> =
         taskQueryService.get(taskId)
             .mapBoth(
-                success = { task -> task.copyWithPhase(phase.toDomain()) },
+                success = { task -> task.copyWithPhase(phase) },
                 failure = { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) },
             )
             .flatMap { task ->
