@@ -24,7 +24,7 @@ class ProjectTest {
     }
 
     @Test
-    fun Taskのプロパティを確認するテスト() {
+    fun Projectのプロパティの等価性の確認() {
         the(mockProject.id).shouldBeEqual(ProjectId("mockUUID"))
         the(mockProject.title).shouldBeEqual(ProjectTitle("mockProjectTitle"))
         the(mockProject.description).shouldBeEqual(ProjectDescription("mockProjectDescription"))

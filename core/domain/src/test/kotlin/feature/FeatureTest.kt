@@ -28,7 +28,7 @@ class FeatureTest {
     }
 
     @Test
-    fun Taskのプロパティを確認するテスト() {
+    fun Featureのプロパティの等価性の確認() {
         the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
         the(mockFeature.projectId).shouldBeEqual(ProjectId("mockProjectId"))
         the(mockFeature.title).shouldBeEqual(FeatureTitle("mockFeatureTitle"))
