@@ -1,8 +1,10 @@
 package update
 
+import UseCaseException
 import com.wsr.apiresult.*
 import dto.feature.FeatureQueryService
 import feature.*
+import toUseCaseException
 
 class UpdateFeaturePhaseUseCase(
     private val featureQueryService: FeatureQueryService,
@@ -11,34 +13,30 @@ class UpdateFeaturePhaseUseCase(
     suspend operator fun invoke(
         featureId: FeatureId,
         title: FeatureTitle,
-    ): ApiResult<Unit, UpdateFeatureUseCaseException> =
+    ): ApiResult<Unit, UseCaseException> =
         update(featureId) { feature -> feature.copy(title = title) }
 
     suspend operator fun invoke(
         featureId: FeatureId,
         description: FeatureDescription,
-    ): ApiResult<Unit, UpdateFeatureUseCaseException> =
+    ): ApiResult<Unit, UseCaseException> =
         update(featureId) { feature -> feature.copy(description = description) }
 
     suspend operator fun invoke(
         featureId: FeatureId,
         phase: FeaturePhase,
-    ): ApiResult<Unit, UpdateFeatureUseCaseException> =
+    ): ApiResult<Unit, UseCaseException> =
         update(featureId) { feature -> feature.copyWithPhase(phase) }
 
     private suspend fun update(featureId: FeatureId, newFeatureBuilder: (Feature) -> Feature) =
         featureQueryService.get(featureId)
             .mapBoth(
                 success = newFeatureBuilder,
-                failure = { UpdateFeatureUseCaseException.DatabaseException(it.message) },
+                failure = { it.toUseCaseException() },
             )
             .flatMap { feature ->
                 featureRepository
                     .update(feature)
-                    .mapFailure { UpdateFeatureUseCaseException.DatabaseException(it.message) }
+                    .mapFailure { it.toUseCaseException() }
             }
-}
-
-sealed class UpdateFeatureUseCaseException : Exception() {
-    data class DatabaseException(override val message: String?) : UpdateFeatureUseCaseException()
 }

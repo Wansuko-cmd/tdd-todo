@@ -15,7 +15,6 @@ import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import project.ProjectId
 import update.UpdateFeaturePhaseUseCase
-import update.UpdateFeatureUseCaseException
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -49,19 +48,19 @@ class UpdateFeatureFailureTest {
     @Test
     fun titleの更新失敗時() = runTest {
         val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = FeatureTitle("newTitle"))
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @Test
     fun descriptionの更新失敗時() = runTest {
         val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, description = FeatureDescription("newDescription"))
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @Test
     fun phaseの更新失敗時() = runTest {
         val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, phase = FeaturePhase.Done)
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeatureUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest

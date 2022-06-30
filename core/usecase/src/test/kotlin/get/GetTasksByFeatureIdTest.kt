@@ -6,7 +6,6 @@ import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
 import dto.task.TaskQueryService
-import get.task.GetTaskUseCaseException
 import get.task.GetTasksByFeatureIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -55,7 +54,7 @@ class GetTasksByFeatureIdTest {
     @Test
     fun Task取得失敗時はFailureを返す() = runTest {
         coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
-        val expected = ApiResult.Failure(GetTaskUseCaseException.DatabaseException("Error"))
+        val expected = ApiResult.Failure(UseCaseException.DatabaseException("Error"))
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
 

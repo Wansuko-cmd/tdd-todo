@@ -16,7 +16,6 @@ import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import task.*
 import update.UpdateTaskUseCase
-import update.UpdateTaskUseCaseException
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -48,19 +47,19 @@ class UpdateTaskFailureTest {
     @Test
     fun titleの更新失敗時() = runTest {
         val result = updateTaskUseCase(taskId = mockTask.id, title = TaskTitle("newTitle"))
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @Test
     fun descriptionの更新失敗時() = runTest {
         val result = updateTaskUseCase(taskId = mockTask.id, description = TaskDescription("newDescription"))
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @Test
     fun phaseの更新失敗時() = runTest {
         val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
-        the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest

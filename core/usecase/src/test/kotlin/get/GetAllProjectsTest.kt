@@ -13,7 +13,6 @@ import project.*
 import QueryServiceException
 import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import dto.project.ProjectQueryService
-import get.project.GetAllProjectsUseCaseException
 import get.project.GetAllProjectsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -58,7 +57,7 @@ class GetAllProjectsTest {
         } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
 
         the(getAllProjectsUseCase())
-            .shouldBeEqual(ApiResult.Failure(GetAllProjectsUseCaseException.DatabaseException("Error")))
+            .shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest

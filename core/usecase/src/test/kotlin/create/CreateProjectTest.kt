@@ -47,7 +47,7 @@ class CreateProjectTest {
             title = ProjectTitle("mockTitle"),
             description = ProjectDescription("mockDescription"),
         )
-        the(result).shouldBeEqual(ApiResult.Failure(CreateProjectUseCaseException.DatabaseException("Error")))
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest

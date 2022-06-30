@@ -15,7 +15,6 @@ import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import project.ProjectId
 import update.UpdateFeaturePhaseUseCase
-import update.UpdateFeatureUseCaseException
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

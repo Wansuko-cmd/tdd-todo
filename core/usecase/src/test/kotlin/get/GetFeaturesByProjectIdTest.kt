@@ -6,7 +6,6 @@ import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import feature.*
 import dto.feature.FeatureQueryService
-import get.feature.GetFeatureUseCaseException
 import get.feature.GetFeaturesByProjectIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -55,7 +54,7 @@ class GetFeaturesByProjectIdTest {
     @Test
     fun Feature取得失敗時はFailureを返す() = runTest {
         coEvery { featureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Failure(QueryServiceException.DatabaseException("Error"))
-        val expected = ApiResult.Failure(GetFeatureUseCaseException.DatabaseException("Error"))
+        val expected = ApiResult.Failure(UseCaseException.DatabaseException("Error"))
         the(getFeaturesByProjectIdUseCase(mockProjectId)).shouldBeEqual(expected)
     }
 

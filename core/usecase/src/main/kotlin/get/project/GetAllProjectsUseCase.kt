@@ -1,19 +1,17 @@
 package get.project
 
+import UseCaseException
 import dto.project.ProjectUseCaseDto
 import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.mapBoth
 import dto.project.ProjectQueryService
+import toUseCaseException
 
 class GetAllProjectsUseCase(private val queryService: ProjectQueryService) {
-    suspend operator fun invoke(): ApiResult<List<ProjectUseCaseDto>, GetAllProjectsUseCaseException> =
+    suspend operator fun invoke(): ApiResult<List<ProjectUseCaseDto>, UseCaseException> =
         queryService.getAll().mapBoth(
             success = { projects -> projects.map { it.toUseCaseDto() } },
-            failure = { GetAllProjectsUseCaseException.DatabaseException(it.message) },
+            failure = { it.toUseCaseException() },
         )
-}
-
-sealed class GetAllProjectsUseCaseException : Exception() {
-    data class DatabaseException(override val message: String?) : GetAllProjectsUseCaseException()
 }

@@ -1,11 +1,13 @@
 package update
 
+import UseCaseException
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.flatMap
 import com.wsr.apiresult.mapBoth
 import com.wsr.apiresult.mapFailure
 import dto.task.TaskQueryService
 import task.*
+import toUseCaseException
 
 class UpdateTaskUseCase(
     private val taskQueryService: TaskQueryService,
@@ -15,19 +17,19 @@ class UpdateTaskUseCase(
     suspend operator fun invoke(
         taskId: TaskId,
         title: TaskTitle,
-    ): ApiResult<Unit, UpdateTaskUseCaseException> =
+    ): ApiResult<Unit, UseCaseException> =
         update(taskId) { task -> task.copy(title = title) }
 
     suspend operator fun invoke(
         taskId: TaskId,
         description: TaskDescription,
-    ): ApiResult<Unit, UpdateTaskUseCaseException> =
+    ): ApiResult<Unit, UseCaseException> =
         update(taskId) { task -> task.copy(description = description) }
 
     suspend operator fun invoke(
         taskId: TaskId,
         phase: TaskPhase,
-    ): ApiResult<Unit, UpdateTaskUseCaseException> =
+    ): ApiResult<Unit, UseCaseException> =
         update(taskId) { task -> task.copyWithPhase(phase) }
 
 
@@ -35,15 +37,11 @@ class UpdateTaskUseCase(
         taskQueryService.get(taskId)
             .mapBoth(
                 success = newTaskBuilder,
-                failure = { UpdateTaskUseCaseException.DatabaseException(it.message) },
+                failure = { it.toUseCaseException() },
             )
             .flatMap { task ->
                 taskRepository
                     .update(task)
-                    .mapFailure { UpdateTaskUseCaseException.DatabaseException(it.message) }
+                    .mapFailure { it.toUseCaseException() }
             }
-}
-
-sealed class UpdateTaskUseCaseException : Exception() {
-    data class DatabaseException(override val message: String?) : UpdateTaskUseCaseException()
 }
