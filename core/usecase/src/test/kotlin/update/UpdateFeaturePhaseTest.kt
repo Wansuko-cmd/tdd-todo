@@ -26,7 +26,7 @@ class UpdateFeaturePhaseTest {
     @MockK
     private lateinit var featureRepository: FeatureRepository
 
-    private val mockData = Feature(
+    private val mockFeature = Feature(
         id = FeatureId("mockId"),
         projectId = ProjectId("mockProjectId"),
         title = FeatureTitle("mockTitle"),
@@ -42,17 +42,27 @@ class UpdateFeaturePhaseTest {
 
     @Test
     fun 特定のFeatureのPhaseを更新() = runTest {
-        coEvery { featureQueryService.get(mockData.id) } returns ApiResult.Success(mockData)
-        coEvery { featureRepository.update(mockData.copyWithPhase(FeaturePhase.Done)) } returns ApiResult.Success(Unit)
-        val result = updateFeaturePhaseUseCase(mockData.id, FeaturePhase.Done)
+        coEvery { featureQueryService.get(mockFeature.id) } returns ApiResult.Success(mockFeature)
+        coEvery { featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done)) } returns ApiResult.Success(Unit)
+        val result = updateFeaturePhaseUseCase(mockFeature.id, FeaturePhase.Done)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
+    }
+
+    @Test
+    fun update失敗時にはFailureを返す() = runTest {
+        coEvery { featureQueryService.get(mockFeature.id) } returns ApiResult.Success(mockFeature)
+        coEvery {
+            featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done))
+        } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, phase = FeaturePhase.Done)
+        the(result).shouldBeEqual(ApiResult.Failure(UpdateFeaturePhaseUseCaseException.DatabaseException("Error")))
     }
 
     @AfterTest
     fun 呼び出し回数のカウント() {
         coVerify(exactly = 1) {
-            featureQueryService.get(mockData.id)
-            featureRepository.update(mockData.copyWithPhase(FeaturePhase.Done))
+            featureQueryService.get(mockFeature.id)
+            featureRepository.update(mockFeature.copyWithPhase(FeaturePhase.Done))
         }
         confirmVerified(featureQueryService, featureRepository)
     }

@@ -10,10 +10,22 @@ class UpdateFeaturePhaseUseCase(
     private val featureQueryService: FeatureQueryService,
     private val featureRepository: FeatureRepository,
 ) {
-    suspend operator fun invoke(featureId: FeatureId, phase: FeaturePhase): ApiResult<Unit, Exception> =
+    suspend operator fun invoke(
+        featureId: FeatureId,
+        phase: FeaturePhase,
+    ): ApiResult<Unit, UpdateFeaturePhaseUseCaseException> =
         featureQueryService.get(featureId)
-            .map { it.copyWithPhase(phase) }
+            .mapBoth(
+                success = { feature -> feature.copyWithPhase(phase) },
+                failure = { UpdateFeaturePhaseUseCaseException.DatabaseException(it.message) },
+            )
             .flatMap { feature ->
-                featureRepository.update(feature)
+                featureRepository
+                    .update(feature)
+                    .mapFailure { UpdateFeaturePhaseUseCaseException.DatabaseException(it.message) }
             }
+}
+
+sealed class UpdateFeaturePhaseUseCaseException : Exception() {
+    data class DatabaseException(override val message: String?) : UpdateFeaturePhaseUseCaseException()
 }
