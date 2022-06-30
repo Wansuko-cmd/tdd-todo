@@ -36,8 +36,6 @@ class UpdateFeatureSuccessTest {
         phase = FeaturePhase.Todo,
     )
 
-    private val newTitle = FeatureTitle("newTitle")
-
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
@@ -48,7 +46,7 @@ class UpdateFeatureSuccessTest {
 
     @Test
     fun 特定のFeatureのTitleを更新() = runTest {
-        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = newTitle)
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = FeatureTitle("newTitle"))
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
