@@ -46,7 +46,7 @@ class UpdateTaskPhaseTest {
     @Test
     fun 特定のTaskのPhaseを更新() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
-        coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Success(Unit)
+        coEvery { taskRepository.update(any()) } returns ApiResult.Success(Unit)
         val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
@@ -54,7 +54,7 @@ class UpdateTaskPhaseTest {
     @Test
     fun update失敗時にはFailureを返す() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
-        coEvery { taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red)) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
+        coEvery { taskRepository.update(any()) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
         val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
         the(result).shouldBeEqual(ApiResult.Failure(UpdateTaskUseCaseException.DatabaseException("Error")))
     }
@@ -63,7 +63,7 @@ class UpdateTaskPhaseTest {
     fun 呼び出し回数のカウント() {
         coVerify(exactly = 1) {
             taskQueryService.get(mockTask.id)
-            taskRepository.update(mockTask.copyWithPhase(TaskPhase.Red))
+            taskRepository.update(any())
         }
         confirmVerified(taskQueryService, taskRepository)
     }

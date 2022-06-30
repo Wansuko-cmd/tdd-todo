@@ -47,7 +47,7 @@ class UpdateTaskDescriptionTest {
     @Test
     fun 特定のTaskのDescriptionを更新() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
-        coEvery { taskRepository.update(mockTask.copy(description = newDescription)) } returns ApiResult.Success(Unit)
+        coEvery { taskRepository.update(any()) } returns ApiResult.Success(Unit)
 
         val result = updateTaskUseCase(taskId = mockTask.id, description = newDescription)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
@@ -57,7 +57,7 @@ class UpdateTaskDescriptionTest {
     fun update失敗時にはFailureを返す() = runTest {
         coEvery { taskQueryService.get(mockTask.id) } returns ApiResult.Success(mockTask)
         coEvery {
-            taskRepository.update(mockTask.copy(description = newDescription))
+            taskRepository.update(any())
         } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
 
         val result = updateTaskUseCase(taskId = mockTask.id, description = newDescription)
@@ -68,7 +68,7 @@ class UpdateTaskDescriptionTest {
     fun 呼び出し回数のカウント() {
         coVerify(exactly = 1) {
             taskQueryService.get(mockTask.id)
-            taskRepository.update(mockTask.copy(description = newDescription))
+            taskRepository.update(any())
         }
         confirmVerified(taskQueryService, taskRepository)
     }
