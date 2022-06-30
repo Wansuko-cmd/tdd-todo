@@ -37,3 +37,7 @@ class UpdateTaskUseCase(
                     .mapFailure { UpdateTaskPhaseUseCaseException.DatabaseException(it.message) }
             }
 }
+
+sealed class UpdateTaskPhaseUseCaseException : Exception() {
+    data class DatabaseException(override val message: String?) : UpdateTaskPhaseUseCaseException()
+}
