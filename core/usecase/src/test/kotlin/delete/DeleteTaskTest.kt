@@ -38,6 +38,13 @@ class DeleteTaskTest {
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
+    @Test
+    fun Task削除に失敗したとき() = runTest {
+        coEvery { taskRepository.delete(mockTaskId) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
+        val result = deleteTaskUseCase(mockTaskId)
+        the(result).shouldBeEqual(ApiResult.Failure(UseCaseException.DatabaseException("Error")))
+    }
+
     @AfterTest
     fun 関連するメソッド呼び出しの回数の確認() {
         coVerify(exactly = 1) { taskRepository.delete(mockTaskId) }
