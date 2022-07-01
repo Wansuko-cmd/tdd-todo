@@ -4,7 +4,6 @@ package dto
 
 import dto.task.TaskUseCaseDto
 import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
-import feature.*
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test
 import task.*
@@ -19,9 +18,9 @@ class TaskUseCaseDtoTest {
     @Test
     fun Featureから変換可能() {
         val expected = TaskUseCaseDto(
-            id = task.id.value,
-            title = task.title.value,
-            description = task.description.value,
+            id = task.id,
+            title = task.title,
+            description = task.description,
             phase = task.phase,
         )
         the(task.toUseCaseDto()).shouldBeEqual(expected)

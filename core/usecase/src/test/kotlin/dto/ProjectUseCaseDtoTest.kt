@@ -21,9 +21,9 @@ class ProjectUseCaseDtoTest {
     @Test
     fun Projectから変換可能() {
         val expected = ProjectUseCaseDto(
-            id = project.id.value,
-            title = project.title.value,
-            description = project.description.value,
+            id = project.id,
+            title = project.title,
+            description = project.description,
             features = project.features,
         )
         the(project.toUseCaseDto()).shouldBeEqual(expected)

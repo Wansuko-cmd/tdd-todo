@@ -1,19 +1,18 @@
 package dto.task
 
-import task.Task
-import task.TaskPhase
+import task.*
 
 data class TaskUseCaseDto(
-    val id: String,
-    val title: String,
-    val description: String,
+    val id: TaskId,
+    val title: TaskTitle,
+    val description: TaskDescription,
     val phase: TaskPhase,
 ) {
     companion object {
         fun Task.toUseCaseDto() = TaskUseCaseDto(
-            id = id.value,
-            title = title.value,
-            description = description.value,
+            id = id,
+            title = title,
+            description = description,
             phase = phase,
         )
     }

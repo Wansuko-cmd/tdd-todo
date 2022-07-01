@@ -18,9 +18,9 @@ class FeatureUseCaseDtoTest {
     @Test
     fun Featureから変換可能() {
         val expected = FeatureUseCaseDto(
-            id = feature.id.value,
-            title = feature.title.value,
-            description = feature.description.value,
+            id = feature.id,
+            title = feature.title,
+            description = feature.description,
             phase = feature.phase,
             tasks = feature.tasks
         )
