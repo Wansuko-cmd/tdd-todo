@@ -4,11 +4,11 @@ import task.TaskId
 import java.util.*
 
 data class Feature private constructor(
-    val id: FeatureId = FeatureId(UUID.randomUUID().toString()),
+    val id: FeatureId,
     val title: FeatureTitle,
     val description: FeatureDescription,
-    val phase: FeaturePhase = FeaturePhase.Todo,
-    val tasks: List<TaskId> = listOf()
+    val phase: FeaturePhase,
+    val tasks: List<TaskId>,
 ) {
     fun copyWithPhase(newPhase: FeaturePhase): Feature = copy(phase = newPhase)
 
