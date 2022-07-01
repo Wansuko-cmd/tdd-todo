@@ -33,7 +33,7 @@ class CreateTaskTest {
 
     @Test
     fun 新たなFeatureを生成する() = runTest {
-        coEvery { taskRepository.insert(any()) } returns ApiResult.Success(Unit)
+        coEvery { taskRepository.insert(any(), FeatureId(any())) } returns ApiResult.Success(Unit)
         val result = createTaskUseCase(
             featureId = FeatureId("mockFeatureId"),
             title = TaskTitle("mockTitle"),
@@ -44,7 +44,7 @@ class CreateTaskTest {
 
     @Test
     fun Feature生成に失敗したとき() = runTest {
-        coEvery { taskRepository.insert(any()) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
+        coEvery { taskRepository.insert(any(), FeatureId(any())) } returns ApiResult.Failure(RepositoryException.DatabaseException("Error"))
         val result = createTaskUseCase(
             featureId = FeatureId("mockFeatureId"),
             title = TaskTitle("mockTitle"),
@@ -55,7 +55,7 @@ class CreateTaskTest {
 
     @AfterTest
     fun 関連するメソッド呼び出しの回数の確認() {
-        coVerify(exactly = 1) { taskRepository.insert(any()) }
+        coVerify(exactly = 1) { taskRepository.insert(any(), FeatureId(any())) }
         confirmVerified(taskRepository)
     }
 }
