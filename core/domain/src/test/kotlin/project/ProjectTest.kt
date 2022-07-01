@@ -53,4 +53,14 @@ class ProjectTest {
         val copiedProject = mockProject.changeTitle(title = ProjectTitle("copiedProjectTitle"))
         the(copiedProject.title).shouldBeEqual(ProjectTitle("copiedProjectTitle"))
     }
+
+    @Test
+    fun ProjectのDescriptionを書き換えたコピーを作成() {
+        val mockProject = Project.create(
+            title = ProjectTitle("mockProjectTitle"),
+            description = ProjectDescription("mockProjectDescription"),
+        )
+        val copiedProject = mockProject.changeDescription(description = ProjectDescription("copiedProjectDescription"))
+        the(copiedProject.description).shouldBeEqual(ProjectDescription("copiedProjectDescription"))
+    }
 }

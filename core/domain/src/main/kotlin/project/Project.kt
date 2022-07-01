@@ -17,6 +17,14 @@ data class Project private constructor(
             features = this.features,
         )
 
+    fun changeDescription(description: ProjectDescription) =
+        reconstruct(
+            id = this.id,
+            title = this.title,
+            description = description,
+            features = this.features,
+        )
+
     companion object {
         fun create(
             title: ProjectTitle,
