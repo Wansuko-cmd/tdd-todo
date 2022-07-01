@@ -2,28 +2,30 @@ package task
 
 import java.util.*
 
-data class Task private constructor(
+class Task private constructor(
     val id: TaskId = TaskId(UUID.randomUUID().toString()),
     val title: TaskTitle,
     val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
 ) {
     fun changeTitle(title: TaskTitle) =
-        Task(
+        reconstruct(
             id = this.id,
             title = title,
             description = this.description,
             phase = this.phase,
         )
+
     fun changeDescription(description: TaskDescription) =
-        Task(
+        reconstruct(
             id = this.id,
             title = this.title,
             description = description,
             phase = this.phase,
         )
+
     fun changePhase(phase: TaskPhase): Task =
-        Task(
+        reconstruct(
             id = this.id,
             title = this.title,
             description = this.description,

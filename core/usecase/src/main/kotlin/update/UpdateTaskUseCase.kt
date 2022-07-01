@@ -18,13 +18,13 @@ class UpdateTaskUseCase(
         taskId: TaskId,
         title: TaskTitle,
     ): ApiResult<Unit, UseCaseException> =
-        update(taskId) { task -> task.copy(title = title) }
+        update(taskId) { task -> task.changeTitle(title = title) }
 
     suspend operator fun invoke(
         taskId: TaskId,
         description: TaskDescription,
     ): ApiResult<Unit, UseCaseException> =
-        update(taskId) { task -> task.copy(description = description) }
+        update(taskId) { task -> task.changeDescription(description = description) }
 
     suspend operator fun invoke(
         taskId: TaskId,
