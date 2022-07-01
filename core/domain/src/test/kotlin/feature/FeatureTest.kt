@@ -28,6 +28,20 @@ class FeatureTest {
     }
 
     @Test
+    fun Featureを一から生成() {
+        val mockFeature = Feature.create(
+            title = FeatureTitle("mockFeatureTitle"),
+            description = FeatureDescription("mockFeatureDescription"),
+        )
+
+        the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
+        the(mockFeature.title).shouldBeEqual(FeatureTitle("mockFeatureTitle"))
+        the(mockFeature.description).shouldBeEqual(FeatureDescription("mockFeatureDescription"))
+        the(mockFeature.phase).shouldBeEqual(FeaturePhase.Todo)
+        the(mockFeature.tasks).shouldBeEqual(listOf<TaskId>())
+    }
+
+    @Test
     fun Featureのプロパティの等価性の確認() {
         the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
         the(mockFeature.projectId).shouldBeEqual(ProjectId("mockProjectId"))

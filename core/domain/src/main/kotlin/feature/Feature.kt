@@ -13,6 +13,18 @@ data class Feature(
     val tasks: List<TaskId> = listOf()
 ) {
     fun copyWithPhase(newPhase: FeaturePhase): Feature = copy(phase = newPhase)
+
+    companion object {
+        fun create(title: FeatureTitle, description: FeatureDescription) =
+            Feature(
+                id = FeatureId(UUID.randomUUID().toString()),
+                projectId = ProjectId(""),
+                title = title,
+                description = description,
+                phase = FeaturePhase.Todo,
+                tasks = listOf(),
+            )
+    }
 }
 
 @JvmInline
