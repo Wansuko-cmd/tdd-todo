@@ -5,7 +5,6 @@ package feature
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec.the
-import project.ProjectId
 import task.*
 import java.util.*
 import kotlin.test.BeforeTest
@@ -77,7 +76,8 @@ class FeatureTest {
     }
 
     @Test
-    fun copyWithPhaseを用いてPhaseが変わったFeatureを取得可能() {
-        the(mockFeature.copyWithPhase(newPhase = FeaturePhase.Done).phase).shouldBeEqual(FeaturePhase.Done)
+    fun changePhaseを用いてPhaseが変わったFeatureを取得可能() {
+        val copiedFeature = mockFeature.changePhase(FeaturePhase.Done)
+        the(copiedFeature.phase).shouldBeEqual(FeaturePhase.Done)
     }
 }

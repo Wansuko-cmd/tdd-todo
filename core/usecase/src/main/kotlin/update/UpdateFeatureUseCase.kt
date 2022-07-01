@@ -26,7 +26,7 @@ class UpdateFeatureUseCase(
         featureId: FeatureId,
         phase: FeaturePhase,
     ): ApiResult<Unit, UseCaseException> =
-        update(featureId) { feature -> feature.copyWithPhase(phase) }
+        update(featureId) { feature -> feature.changePhase(phase) }
 
     private suspend fun update(featureId: FeatureId, newFeatureBuilder: (Feature) -> Feature) =
         featureQueryService.get(featureId)

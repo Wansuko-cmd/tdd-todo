@@ -20,7 +20,7 @@ class ChangeProjectPropertyTest {
 
     @Test
     fun ProjectのDescriptionを書き換えたコピーを作成() {
-        val copiedProject = mockProject.changeDescription( ProjectDescription("copiedProjectDescription"))
+        val copiedProject = mockProject.changeDescription(ProjectDescription("copiedProjectDescription"))
         the(copiedProject.description).shouldBeEqual(ProjectDescription("copiedProjectDescription"))
     }
 }
