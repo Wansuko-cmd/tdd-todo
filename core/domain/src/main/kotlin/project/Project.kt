@@ -19,6 +19,17 @@ data class Project(
             description = description,
             features = listOf()
         )
+        fun reconstruct(
+            id: ProjectId,
+            title: ProjectTitle,
+            description: ProjectDescription,
+            features: List<FeatureId>,
+        ) = Project(
+            id = id,
+            title = title,
+            description = description,
+            features = features,
+        )
     }
 }
 

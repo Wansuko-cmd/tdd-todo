@@ -2,6 +2,7 @@
 
 package project
 
+import feature.Feature
 import feature.FeatureId
 import io.mockk.every
 import io.mockk.mockkStatic
@@ -11,24 +12,36 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 class ProjectTest {
-    private lateinit var mockProject: Project
-
     @BeforeTest
     fun setup() {
         mockkStatic(UUID::class)
         val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
-        mockProject = Project.create(
-            title = ProjectTitle("mockProjectTitle"),
-            description = ProjectDescription("mockProjectDescription"),
-        )
     }
 
     @Test
-    fun Projectのプロパティの等価性の確認() {
+    fun Projectを一から生成() {
+        val mockProject = Project.create(
+            title = ProjectTitle("mockProjectTitle"),
+            description = ProjectDescription("mockProjectDescription"),
+        )
         the(mockProject.id).shouldBeEqual(ProjectId("mockUUID"))
         the(mockProject.title).shouldBeEqual(ProjectTitle("mockProjectTitle"))
         the(mockProject.description).shouldBeEqual(ProjectDescription("mockProjectDescription"))
         the(mockProject.features).shouldBeEqual(listOf<FeatureId>())
+    }
+
+    @Test
+    fun Projectを再生成() {
+        val mockProject = Project.reconstruct(
+            id = ProjectId("mockUUID"),
+            title = ProjectTitle("mockProjectTitle"),
+            description = ProjectDescription("mockProjectDescription"),
+            features = List(3) { index -> FeatureId("mockFeatureId$index") }
+        )
+        the(mockProject.id).shouldBeEqual(ProjectId("mockUUID"))
+        the(mockProject.title).shouldBeEqual(ProjectTitle("mockProjectTitle"))
+        the(mockProject.description).shouldBeEqual(ProjectDescription("mockProjectDescription"))
+        the(mockProject.features).shouldBeEqual(List(3) { index -> FeatureId("mockFeatureId$index") })
     }
 }
