@@ -5,7 +5,6 @@ import java.util.*
 
 data class Task private constructor(
     val id: TaskId = TaskId(UUID.randomUUID().toString()),
-    val featureId: FeatureId,
     val title: TaskTitle,
     val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
@@ -16,7 +15,6 @@ data class Task private constructor(
         fun create(title: TaskTitle, description: TaskDescription) =
             Task(
                 id = TaskId(UUID.randomUUID().toString()),
-                featureId = FeatureId(""),
                 title = title,
                 description = description,
                 phase = TaskPhase.Todo,
@@ -32,7 +30,6 @@ data class Task private constructor(
             title = title,
             description = description,
             phase = phase,
-            featureId = FeatureId(""),
         )
     }
 }
