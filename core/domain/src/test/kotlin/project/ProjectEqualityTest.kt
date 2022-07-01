@@ -9,13 +9,13 @@ class ProjectEqualityTest {
     @Test
     fun ProjectはIdで等価性を判断() {
         val mockProject = Project.create(
-            title = ProjectTitle("mockTitle"),
-            description = ProjectDescription("mockDescription"),
+            title = ProjectTitle("mockProjectTitle"),
+            description = ProjectDescription("mockProjectDescription"),
         )
         val otherProject = Project.reconstruct(
             id = mockProject.id,
-            title = ProjectTitle("otherTitle"),
-            description = ProjectDescription("otherDescription"),
+            title = ProjectTitle("otherProjectTitle"),
+            description = ProjectDescription("otherProjectDescription"),
             features = listOf(),
         )
         the(mockProject).shouldBeEqual(otherProject)

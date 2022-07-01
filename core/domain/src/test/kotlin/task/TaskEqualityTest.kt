@@ -15,8 +15,8 @@ class TaskEqualityTest {
         )
         val otherTask = Task.reconstruct(
             id = mockTask.id,
-            title = TaskTitle("mockTaskTitle"),
-            description = TaskDescription("mockTaskDescription"),
+            title = TaskTitle("otherTaskTitle"),
+            description = TaskDescription("otherTaskDescription"),
             phase = TaskPhase.Todo,
         )
         the(mockTask).shouldBeEqual(otherTask)
