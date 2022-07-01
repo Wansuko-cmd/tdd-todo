@@ -3,7 +3,7 @@ package feature
 import task.TaskId
 import java.util.*
 
-data class Feature(
+data class Feature private constructor(
     val id: FeatureId = FeatureId(UUID.randomUUID().toString()),
     val title: FeatureTitle,
     val description: FeatureDescription,
