@@ -18,10 +18,9 @@ class ProjectTest {
         mockkStatic(UUID::class)
         val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
-        mockProject = Project(
+        mockProject = Project.create(
             title = ProjectTitle("mockProjectTitle"),
             description = ProjectDescription("mockProjectDescription"),
-            features = List(3) { FeatureId("mockFeature$it") },
         )
     }
 
@@ -30,5 +29,6 @@ class ProjectTest {
         the(mockProject.id).shouldBeEqual(ProjectId("mockUUID"))
         the(mockProject.title).shouldBeEqual(ProjectTitle("mockProjectTitle"))
         the(mockProject.description).shouldBeEqual(ProjectDescription("mockProjectDescription"))
+        the(mockProject.features).shouldBeEqual(listOf<FeatureId>())
     }
 }
