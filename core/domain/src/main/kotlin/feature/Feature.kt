@@ -1,6 +1,7 @@
 package feature
 
 import project.ProjectId
+import task.TaskId
 import java.util.*
 
 data class Feature(
@@ -9,6 +10,7 @@ data class Feature(
     val title: FeatureTitle,
     val description: FeatureDescription,
     val phase: FeaturePhase = FeaturePhase.Todo,
+    val tasks: List<TaskId> = listOf()
 ) {
     fun copyWithPhase(newPhase: FeaturePhase): Feature = copy(phase = newPhase)
 }
