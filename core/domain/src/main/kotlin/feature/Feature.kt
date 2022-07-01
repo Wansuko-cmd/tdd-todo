@@ -37,6 +37,10 @@ class Feature private constructor(
             tasks = this.tasks,
         )
 
+    override fun equals(other: Any?): Boolean = id == (other as? Feature)?.id
+
+    override fun hashCode(): Int = id.hashCode()
+
     companion object {
         fun create(title: FeatureTitle, description: FeatureDescription) =
             Feature(
