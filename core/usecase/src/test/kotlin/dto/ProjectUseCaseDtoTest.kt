@@ -24,6 +24,7 @@ class ProjectUseCaseDtoTest {
             id = project.id.value,
             title = project.title.value,
             description = project.description.value,
+            features = project.features,
         )
         the(project.toUseCaseDto()).shouldBeEqual(expected)
     }
