@@ -25,6 +25,10 @@ class Project private constructor(
             features = this.features,
         )
 
+    override fun equals(other: Any?): Boolean = id == (other as? Project)?.id
+
+    override fun hashCode(): Int = id.hashCode()
+
     companion object {
         fun create(
             title: ProjectTitle,
