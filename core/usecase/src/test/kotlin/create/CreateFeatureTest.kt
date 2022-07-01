@@ -3,18 +3,18 @@
 package create
 
 import com.wsr.apiresult.ApiResult
+import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
+import feature.Feature
 import feature.FeatureDescription
 import feature.FeatureRepository
 import feature.FeatureTitle
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.confirmVerified
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import project.ProjectId
+import java.util.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -28,6 +28,9 @@ class CreateFeatureTest {
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
+        mockkStatic(UUID::class)
+        val uuid = "mockUUID"
+        every { UUID.randomUUID().toString() } returns uuid
         createFeatureUseCase = CreateFeatureUseCase(featureRepository)
     }
 
@@ -39,7 +42,11 @@ class CreateFeatureTest {
             title = FeatureTitle("mockTitle"),
             description = FeatureDescription("mockDescription"),
         )
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val expected = Feature.create(
+            title = FeatureTitle("mockTitle"),
+            description = FeatureDescription("mockDescription"),
+        ).toUseCaseDto()
+        the(result).shouldBeEqual(ApiResult.Success(expected))
     }
 
     @Test
