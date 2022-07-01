@@ -9,7 +9,7 @@ data class TaskUseCaseDto(
     val phase: TaskPhase,
 ) {
     companion object {
-        fun Task.toUseCaseDto() = TaskUseCaseDto(
+        internal fun Task.toUseCaseDto() = TaskUseCaseDto(
             id = id,
             title = title,
             description = description,

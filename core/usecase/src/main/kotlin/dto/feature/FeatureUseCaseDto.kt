@@ -11,7 +11,7 @@ data class FeatureUseCaseDto(
     val tasks: List<TaskId>
 ) {
     companion object {
-        fun Feature.toUseCaseDto() = FeatureUseCaseDto(
+        internal fun Feature.toUseCaseDto() = FeatureUseCaseDto(
             id = id,
             title = title,
             description = description,

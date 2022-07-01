@@ -13,7 +13,7 @@ data class ProjectUseCaseDto(
     val features: List<FeatureId>
 ) {
     companion object {
-        fun Project.toUseCaseDto() = ProjectUseCaseDto(
+        internal fun Project.toUseCaseDto() = ProjectUseCaseDto(
             id = id,
             title = title,
             description = description,
