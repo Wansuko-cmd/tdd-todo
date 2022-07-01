@@ -21,6 +21,19 @@ data class Task(
                 description = description,
                 phase = TaskPhase.Todo,
             )
+
+        fun reconstruct(
+            id: TaskId,
+            title: TaskTitle,
+            description: TaskDescription,
+            phase: TaskPhase,
+        ) = Task(
+            id = id,
+            title = title,
+            description = description,
+            phase = phase,
+            featureId = FeatureId(""),
+        )
     }
 }
 

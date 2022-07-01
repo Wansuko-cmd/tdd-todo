@@ -41,6 +41,21 @@ class TaskTest {
     }
 
     @Test
+    fun Taskを再生成() {
+        val mockTask = Task.reconstruct(
+            id = TaskId("mockTaskId"),
+            title = TaskTitle("mockTaskTitle"),
+            description = TaskDescription("mockTaskDescription"),
+            phase = TaskPhase.Red,
+        )
+
+        the(mockTask.id).shouldBeEqual(TaskId("mockTaskId"))
+        the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
+        the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
+        the(mockTask.phase).shouldBeEqual(TaskPhase.Red)
+    }
+
+    @Test
     fun Taskのプロパティの等価性の確認() {
         the(mockTask.id).shouldBeEqual(TaskId("mockUUID"))
         the(mockTask.featureId).shouldBeEqual(FeatureId("mockFeatureId"))
