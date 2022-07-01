@@ -6,6 +6,8 @@ import com.wsr.apiresult.flatMap
 import com.wsr.apiresult.mapBoth
 import com.wsr.apiresult.mapFailure
 import dto.task.TaskQueryService
+import dto.task.TaskUseCaseDto
+import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import task.*
 import toUseCaseException
 
@@ -17,19 +19,19 @@ class UpdateTaskUseCase(
     suspend operator fun invoke(
         taskId: TaskId,
         title: TaskTitle,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<TaskUseCaseDto, UseCaseException> =
         update(taskId) { task -> task.changeTitle(title = title) }
 
     suspend operator fun invoke(
         taskId: TaskId,
         description: TaskDescription,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<TaskUseCaseDto, UseCaseException> =
         update(taskId) { task -> task.changeDescription(description = description) }
 
     suspend operator fun invoke(
         taskId: TaskId,
         phase: TaskPhase,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<TaskUseCaseDto, UseCaseException> =
         update(taskId) { task -> task.changePhase(phase) }
 
 
@@ -42,6 +44,9 @@ class UpdateTaskUseCase(
             .flatMap { task ->
                 taskRepository
                     .update(task)
-                    .mapFailure { it.toUseCaseException() }
+                    .mapBoth(
+                        success = { task.toUseCaseDto() },
+                        failure = { it.toUseCaseException() }
+                    )
             }
 }

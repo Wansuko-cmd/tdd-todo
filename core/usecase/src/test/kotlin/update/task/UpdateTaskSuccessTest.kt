@@ -4,6 +4,7 @@ package update.task
 
 import com.wsr.apiresult.ApiResult
 import dto.task.TaskQueryService
+import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import feature.FeatureId
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -42,20 +43,23 @@ class UpdateTaskSuccessTest {
 
     @Test
     fun 特定のTaskのTitleを更新() = runTest {
-        val result = updateTaskUseCase(taskId = mockTask.id, title = TaskTitle("newTitle"))
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newTitle = TaskTitle("newTitle")
+        val result = updateTaskUseCase(taskId = mockTask.id, title = newTitle)
+        the(result).shouldBeEqual(ApiResult.Success(mockTask.changeTitle(newTitle).toUseCaseDto()))
     }
 
     @Test
     fun 特定のTaskのDescriptionを更新() = runTest {
-        val result = updateTaskUseCase(taskId = mockTask.id, description = TaskDescription("newDescription"))
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newDescription = TaskDescription("newDescription")
+        val result = updateTaskUseCase(taskId = mockTask.id, description = newDescription)
+        the(result).shouldBeEqual(ApiResult.Success(mockTask.changeDescription(newDescription).toUseCaseDto()))
     }
 
     @Test
     fun 特定のTaskのPhaseを更新() = runTest {
-        val result = updateTaskUseCase(taskId = mockTask.id, phase = TaskPhase.Red)
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newPhase = TaskPhase.Red
+        val result = updateTaskUseCase(taskId = mockTask.id, phase = newPhase)
+        the(result).shouldBeEqual(ApiResult.Success(mockTask.changePhase(newPhase).toUseCaseDto()))
     }
 
     @AfterTest
