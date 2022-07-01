@@ -15,6 +15,13 @@ data class Task private constructor(
             description = this.description,
             phase = this.phase,
         )
+    fun changeDescription(description: TaskDescription) =
+        Task(
+            id = this.id,
+            title = this.title,
+            description = description,
+            phase = this.phase,
+        )
     fun changePhase(phase: TaskPhase): Task =
         Task(
             id = this.id,
