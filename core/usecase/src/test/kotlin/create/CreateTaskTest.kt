@@ -3,6 +3,7 @@
 package create
 
 import com.wsr.apiresult.ApiResult
+import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import feature.FeatureId
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
@@ -41,7 +42,10 @@ class CreateTaskTest {
             title = TaskTitle("mockTitle"),
             description = TaskDescription("mockDescription"),
         )
-        val expected = Task.create(TaskTitle("mockTitle"), TaskDescription("mockDescription"))
+        val expected = Task.create(
+            TaskTitle("mockTitle"),
+            TaskDescription("mockDescription"),
+        ).toUseCaseDto()
         the(result).shouldBeEqual(ApiResult.Success(expected))
     }
 
