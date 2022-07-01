@@ -1,6 +1,5 @@
 package task
 
-import feature.FeatureId
 import java.util.*
 
 data class Task private constructor(
@@ -9,7 +8,13 @@ data class Task private constructor(
     val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
 ) {
-    fun copyWithPhase(newPhase: TaskPhase): Task = copy(phase = newPhase)
+    fun changePhase(phase: TaskPhase): Task =
+        Task(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            phase = phase
+        )
 
     companion object {
         fun create(title: TaskTitle, description: TaskDescription) =

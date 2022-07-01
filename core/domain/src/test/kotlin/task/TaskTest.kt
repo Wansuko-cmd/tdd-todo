@@ -2,7 +2,6 @@
 
 package task
 
-import feature.FeatureId
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec.*
@@ -67,7 +66,8 @@ class TaskTest {
     }
 
     @Test
-    fun copyWithPhaseを用いてPhaseが変わったTaskを取得可能() {
-        the(mockTask.copyWithPhase(newPhase = TaskPhase.Refactor).phase).shouldBeEqual(TaskPhase.Refactor)
+    fun TaskのPhaseを書き換えたコピーを作成() {
+        val copiedTask = mockTask.changePhase(TaskPhase.Refactor)
+        the(copiedTask.phase).shouldBeEqual(TaskPhase.Refactor)
     }
 }

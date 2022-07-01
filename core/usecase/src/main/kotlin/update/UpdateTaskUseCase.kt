@@ -30,7 +30,7 @@ class UpdateTaskUseCase(
         taskId: TaskId,
         phase: TaskPhase,
     ): ApiResult<Unit, UseCaseException> =
-        update(taskId) { task -> task.copyWithPhase(phase) }
+        update(taskId) { task -> task.changePhase(phase) }
 
 
     private suspend fun update(taskId: TaskId, newTaskBuilder: (Task) -> Task) =
