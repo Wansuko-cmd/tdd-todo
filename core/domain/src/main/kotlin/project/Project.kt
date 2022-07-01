@@ -3,7 +3,7 @@ package project
 import feature.FeatureId
 import java.util.*
 
-data class Project private constructor(
+class Project private constructor(
     val id: ProjectId = ProjectId(UUID.randomUUID().toString()),
     val title: ProjectTitle,
     val description: ProjectDescription,

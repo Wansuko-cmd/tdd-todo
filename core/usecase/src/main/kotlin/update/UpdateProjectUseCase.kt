@@ -17,13 +17,13 @@ class UpdateProjectUseCase(
         projectId: ProjectId,
         title: ProjectTitle,
     ): ApiResult<Unit, UseCaseException> =
-        update(projectId) { project -> project.copy(title = title) }
+        update(projectId) { project -> project.changeTitle(title = title) }
 
     suspend operator fun invoke(
         projectId: ProjectId,
         description: ProjectDescription,
     ): ApiResult<Unit, UseCaseException> =
-        update(projectId) { project -> project.copy(description = description) }
+        update(projectId) { project -> project.changeDescription(description = description) }
 
     private suspend fun update(projectId: ProjectId, newProjectBuilder: (Project) -> Project) =
         projectQueryService.get(projectId)
