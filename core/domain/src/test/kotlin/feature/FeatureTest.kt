@@ -42,6 +42,23 @@ class FeatureTest {
     }
 
     @Test
+    fun Featureを再生成() {
+        val mockFeature = Feature.reconstruct(
+            id = FeatureId("mockFeatureId"),
+            title = FeatureTitle("mockFeatureTitle"),
+            description = FeatureDescription("mockFeatureDescription"),
+            phase = FeaturePhase.InProgress,
+            tasks = List(3) { index -> TaskId("mockTaskId$index") },
+        )
+
+        the(mockFeature.id).shouldBeEqual(FeatureId("mockFeatureId"))
+        the(mockFeature.title).shouldBeEqual(FeatureTitle("mockFeatureTitle"))
+        the(mockFeature.description).shouldBeEqual(FeatureDescription("mockFeatureDescription"))
+        the(mockFeature.phase).shouldBeEqual(FeaturePhase.InProgress)
+        the(mockFeature.tasks).shouldBeEqual(List(3) { index -> TaskId("mockTaskId$index") })
+    }
+
+    @Test
     fun Featureのプロパティの等価性の確認() {
         the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
         the(mockFeature.projectId).shouldBeEqual(ProjectId("mockProjectId"))

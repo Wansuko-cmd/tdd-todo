@@ -24,6 +24,21 @@ data class Feature(
                 phase = FeaturePhase.Todo,
                 tasks = listOf(),
             )
+
+        fun reconstruct(
+            id: FeatureId,
+            title: FeatureTitle,
+            description: FeatureDescription,
+            phase: FeaturePhase,
+            tasks: List<TaskId>,
+        ) = Feature(
+            id = id,
+            projectId = ProjectId(""),
+            title = title,
+            description = description,
+            phase = phase,
+            tasks = tasks,
+        )
     }
 }
 
