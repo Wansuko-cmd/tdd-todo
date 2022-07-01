@@ -1,12 +1,10 @@
 package feature
 
-import project.ProjectId
 import task.TaskId
 import java.util.*
 
 data class Feature(
     val id: FeatureId = FeatureId(UUID.randomUUID().toString()),
-    val projectId: ProjectId,
     val title: FeatureTitle,
     val description: FeatureDescription,
     val phase: FeaturePhase = FeaturePhase.Todo,
@@ -18,7 +16,6 @@ data class Feature(
         fun create(title: FeatureTitle, description: FeatureDescription) =
             Feature(
                 id = FeatureId(UUID.randomUUID().toString()),
-                projectId = ProjectId(""),
                 title = title,
                 description = description,
                 phase = FeaturePhase.Todo,
@@ -33,7 +30,6 @@ data class Feature(
             tasks: List<TaskId>,
         ) = Feature(
             id = id,
-            projectId = ProjectId(""),
             title = title,
             description = description,
             phase = phase,

@@ -19,11 +19,9 @@ class FeatureTest {
         mockkStatic(UUID::class)
         val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
-        mockFeature = Feature(
-            projectId = ProjectId("mockProjectId"),
+        mockFeature = Feature.create(
             title = FeatureTitle("mockFeatureTitle"),
             description = FeatureDescription("mockFeatureDescription"),
-            phase = FeaturePhase.Todo,
         )
     }
 
@@ -61,21 +59,21 @@ class FeatureTest {
     @Test
     fun Featureのプロパティの等価性の確認() {
         the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
-        the(mockFeature.projectId).shouldBeEqual(ProjectId("mockProjectId"))
         the(mockFeature.title).shouldBeEqual(FeatureTitle("mockFeatureTitle"))
         the(mockFeature.description).shouldBeEqual(FeatureDescription("mockFeatureDescription"))
     }
 
+    // TODO
     @Test
     fun Featureはプロパティの値が同じであれば等価とみなされる() {
-        val otherTask = Feature(
-            id = mockFeature.id,
-            projectId = mockFeature.projectId,
-            title = mockFeature.title,
-            description = mockFeature.description,
-            phase = mockFeature.phase,
-        )
-        the(mockFeature).shouldBeEqual(otherTask)
+//        val otherTask = Feature.reconstruct(
+//            id = mockFeature.id,
+//            title = mockFeature.title,
+//            description = mockFeature.description,
+//            phase = mockFeature.phase,
+//            tasks = mockFeature.tasks,
+//        )
+//        the(mockFeature).shouldBeEqual(otherTask)
     }
 
     @Test

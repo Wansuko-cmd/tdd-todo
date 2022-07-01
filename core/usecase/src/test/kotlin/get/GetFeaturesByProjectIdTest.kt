@@ -35,12 +35,9 @@ class GetFeaturesByProjectIdTest {
     private val mockProjectId = ProjectId("mockProjectId")
 
     private val mockData = List(5) { index ->
-        Feature(
-            id = FeatureId("mockId$index"),
-            projectId = mockProjectId,
+        Feature.create(
             title = FeatureTitle("mockTitle$index"),
             description = FeatureDescription("mockDescription$index"),
-            phase = FeaturePhase.Todo,
         )
     }
 

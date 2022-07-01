@@ -27,12 +27,9 @@ class UpdateFeatureFailureTest {
     @MockK
     private lateinit var featureRepository: FeatureRepository
 
-    private val mockFeature = Feature(
-        id = FeatureId("mockId"),
-        projectId = ProjectId("mockProjectId"),
+    private val mockFeature = Feature.create(
         title = FeatureTitle("mockTitle"),
         description = FeatureDescription("mockDescription"),
-        phase = FeaturePhase.Todo,
     )
 
     @BeforeTest

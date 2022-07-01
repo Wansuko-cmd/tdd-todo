@@ -11,12 +11,9 @@ import project.ProjectId
 
 class FeatureUseCaseDtoTest {
 
-    private val feature = Feature(
-        id = FeatureId("mockId"),
-        projectId = ProjectId("mockProjectId"),
+    private val feature = Feature.create(
         title = FeatureTitle("mockTitle"),
         description = FeatureDescription("mockDescription"),
-        phase = FeaturePhase.Todo,
     )
 
     @Test
