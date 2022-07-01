@@ -7,7 +7,6 @@ import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import feature.*
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test
-import project.ProjectId
 
 class FeatureUseCaseDtoTest {
 
@@ -23,6 +22,7 @@ class FeatureUseCaseDtoTest {
             title = feature.title.value,
             description = feature.description.value,
             phase = feature.phase,
+            tasks = feature.tasks
         )
         the(feature.toUseCaseDto()).shouldBeEqual(expected)
     }
