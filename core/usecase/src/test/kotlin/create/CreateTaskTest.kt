@@ -4,17 +4,16 @@ package create
 
 import com.wsr.apiresult.ApiResult
 import feature.FeatureId
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.confirmVerified
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
+import task.Task
 import task.TaskDescription
 import task.TaskRepository
 import task.TaskTitle
+import java.util.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -28,6 +27,9 @@ class CreateTaskTest {
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
+        mockkStatic(UUID::class)
+        val uuid = "mockUUID"
+        every { UUID.randomUUID().toString() } returns uuid
         createTaskUseCase = CreateTaskUseCase(taskRepository)
     }
 
@@ -39,7 +41,8 @@ class CreateTaskTest {
             title = TaskTitle("mockTitle"),
             description = TaskDescription("mockDescription"),
         )
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val expected = Task.create(TaskTitle("mockTitle"), TaskDescription("mockDescription"))
+        the(result).shouldBeEqual(ApiResult.Success(expected))
     }
 
     @Test
