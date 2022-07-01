@@ -10,18 +10,13 @@ import java.util.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class FeatureTest {
-    private lateinit var mockFeature: Feature
+class GenerateFeatureTest {
 
     @BeforeTest
     fun setup() {
         mockkStatic(UUID::class)
         val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
-        mockFeature = Feature.create(
-            title = FeatureTitle("mockFeatureTitle"),
-            description = FeatureDescription("mockFeatureDescription"),
-        )
     }
 
     @Test
@@ -55,41 +50,4 @@ class FeatureTest {
         the(mockFeature.tasks).shouldBeEqual(List(3) { index -> TaskId("mockTaskId$index") })
     }
 
-    @Test
-    fun Featureのプロパティの等価性の確認() {
-        the(mockFeature.id).shouldBeEqual(FeatureId("mockUUID"))
-        the(mockFeature.title).shouldBeEqual(FeatureTitle("mockFeatureTitle"))
-        the(mockFeature.description).shouldBeEqual(FeatureDescription("mockFeatureDescription"))
-    }
-
-    // TODO
-    @Test
-    fun Featureはプロパティの値が同じであれば等価とみなされる() {
-//        val otherTask = Feature.reconstruct(
-//            id = mockFeature.id,
-//            title = mockFeature.title,
-//            description = mockFeature.description,
-//            phase = mockFeature.phase,
-//            tasks = mockFeature.tasks,
-//        )
-//        the(mockFeature).shouldBeEqual(otherTask)
-    }
-
-    @Test
-    fun FeatureのTitleを書き換えたコピーを作成() {
-        val copiedFeature = mockFeature.changeTitle(FeatureTitle("copiedFeatureTitle"))
-        the(copiedFeature.title).shouldBeEqual(FeatureTitle("copiedFeatureTitle"))
-    }
-
-    @Test
-    fun FeatureのDescriptionを書き換えたコピーを作成() {
-        val copiedFeature = mockFeature.changeDescription(FeatureDescription("copiedFeatureDescription"))
-        the(copiedFeature.description).shouldBeEqual(FeatureDescription("copiedFeatureDescription"))
-    }
-
-    @Test
-    fun changePhaseを用いてPhaseが変わったFeatureを取得可能() {
-        val copiedFeature = mockFeature.changePhase(FeaturePhase.Done)
-        the(copiedFeature.phase).shouldBeEqual(FeaturePhase.Done)
-    }
 }
