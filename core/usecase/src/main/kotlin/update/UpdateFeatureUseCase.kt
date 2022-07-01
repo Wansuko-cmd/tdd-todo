@@ -14,13 +14,13 @@ class UpdateFeatureUseCase(
         featureId: FeatureId,
         title: FeatureTitle,
     ): ApiResult<Unit, UseCaseException> =
-        update(featureId) { feature -> feature.copy(title = title) }
+        update(featureId) { feature -> feature.changeTitle(title = title) }
 
     suspend operator fun invoke(
         featureId: FeatureId,
         description: FeatureDescription,
     ): ApiResult<Unit, UseCaseException> =
-        update(featureId) { feature -> feature.copy(description = description) }
+        update(featureId) { feature -> feature.changeDescription(description = description) }
 
     suspend operator fun invoke(
         featureId: FeatureId,

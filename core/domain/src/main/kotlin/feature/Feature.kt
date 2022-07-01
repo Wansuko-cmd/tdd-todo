@@ -3,7 +3,7 @@ package feature
 import task.TaskId
 import java.util.*
 
-data class Feature private constructor(
+class Feature private constructor(
     val id: FeatureId,
     val title: FeatureTitle,
     val description: FeatureDescription,
@@ -18,6 +18,7 @@ data class Feature private constructor(
             phase = this.phase,
             tasks = this.tasks,
         )
+
     fun changeDescription(description: FeatureDescription) =
         reconstruct(
             id = this.id,
@@ -26,7 +27,15 @@ data class Feature private constructor(
             phase = this.phase,
             tasks = this.tasks,
         )
-    fun changePhase(phase: FeaturePhase): Feature = copy(phase = phase)
+
+    fun changePhase(phase: FeaturePhase) =
+        reconstruct(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            phase = phase,
+            tasks = this.tasks,
+        )
 
     companion object {
         fun create(title: FeatureTitle, description: FeatureDescription) =
