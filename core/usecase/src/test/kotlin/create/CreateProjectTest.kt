@@ -3,17 +3,17 @@
 package create
 
 import com.wsr.apiresult.ApiResult
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.confirmVerified
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
+import project.Project
 import project.ProjectDescription
 import project.ProjectRepository
 import project.ProjectTitle
+import java.util.*
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -27,6 +27,9 @@ class CreateProjectTest {
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
+        mockkStatic(UUID::class)
+        val uuid = "mockUUID"
+        every { UUID.randomUUID().toString() } returns uuid
         createProjectUseCase = CreateProjectUseCase(projectRepository)
     }
 
@@ -37,7 +40,11 @@ class CreateProjectTest {
             title = ProjectTitle("mockTitle"),
             description = ProjectDescription("mockDescription"),
         )
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val expected = Project.create(
+            title = ProjectTitle("mockTitle"),
+            ProjectDescription("mockDescription"),
+        ).toUseCaseDto()
+        the(result).shouldBeEqual(ApiResult.Success(expected))
     }
 
     @Test
