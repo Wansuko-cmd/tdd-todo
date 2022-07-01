@@ -28,6 +28,19 @@ class TaskTest {
     }
 
     @Test
+    fun Taskを一から作成() {
+        val mockTask = Task.create(
+            title = TaskTitle("mockTaskTitle"),
+            description = TaskDescription("mockTaskDescription"),
+        )
+
+        the(mockTask.id).shouldBeEqual(TaskId("mockUUID"))
+        the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
+        the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
+        the(mockTask.phase).shouldBeEqual(TaskPhase.Todo)
+    }
+
+    @Test
     fun Taskのプロパティの等価性の確認() {
         the(mockTask.id).shouldBeEqual(TaskId("mockUUID"))
         the(mockTask.featureId).shouldBeEqual(FeatureId("mockFeatureId"))

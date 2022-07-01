@@ -11,6 +11,17 @@ data class Task(
     val phase: TaskPhase = TaskPhase.Todo,
 ) {
     fun copyWithPhase(newPhase: TaskPhase): Task = copy(phase = newPhase)
+
+    companion object {
+        fun create(title: TaskTitle, description: TaskDescription) =
+            Task(
+                id = TaskId(UUID.randomUUID().toString()),
+                featureId = FeatureId(""),
+                title = title,
+                description = description,
+                phase = TaskPhase.Todo,
+            )
+    }
 }
 
 @JvmInline
