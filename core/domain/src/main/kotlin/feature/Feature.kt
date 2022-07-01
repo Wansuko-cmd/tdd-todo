@@ -18,6 +18,14 @@ data class Feature private constructor(
             phase = this.phase,
             tasks = this.tasks,
         )
+    fun changeDescription(description: FeatureDescription) =
+        reconstruct(
+            id = this.id,
+            title = this.title,
+            description = description,
+            phase = this.phase,
+            tasks = this.tasks,
+        )
     fun changePhase(phase: FeaturePhase): Feature = copy(phase = phase)
 
     companion object {
