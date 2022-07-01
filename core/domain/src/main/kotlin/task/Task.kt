@@ -32,6 +32,10 @@ class Task private constructor(
             phase = phase
         )
 
+    override fun equals(other: Any?): Boolean = id == (other as? Task)?.id
+
+    override fun hashCode(): Int = id.hashCode()
+
     companion object {
         fun create(title: TaskTitle, description: TaskDescription) =
             Task(
