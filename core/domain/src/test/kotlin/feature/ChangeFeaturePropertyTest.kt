@@ -25,7 +25,7 @@ class ChangeFeaturePropertyTest {
     }
 
     @Test
-    fun changePhaseを用いてPhaseが変わったFeatureを取得可能() {
+    fun FeatureのPhaseを書き換えたコピーを作成() {
         val copiedFeature = mockFeature.changePhase(FeaturePhase.Done)
         the(copiedFeature.phase).shouldBeEqual(FeaturePhase.Done)
     }
