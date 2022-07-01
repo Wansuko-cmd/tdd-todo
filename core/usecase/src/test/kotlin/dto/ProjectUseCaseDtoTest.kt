@@ -13,8 +13,7 @@ import kotlin.test.Test
 
 class ProjectUseCaseDtoTest {
 
-    private val project = Project(
-        id = ProjectId("mockId"),
+    private val project = Project.create(
         title = ProjectTitle("mockTitle"),
         description = ProjectDescription("mockDescription"),
     )

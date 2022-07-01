@@ -34,8 +34,7 @@ class GetAllProjectsTest {
     }
 
     private val mockData = List(5) { index ->
-        Project(
-            id = ProjectId("mockId$index"),
+        Project.create(
             title = ProjectTitle("mockTitle$index"),
             description = ProjectDescription("mockDescription$index")
         )

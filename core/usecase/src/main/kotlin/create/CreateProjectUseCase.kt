@@ -10,7 +10,7 @@ import project.ProjectTitle
 
 class CreateProjectUseCase(private val projectRepository: ProjectRepository) {
     suspend operator fun invoke(title: ProjectTitle, description: ProjectDescription): ApiResult<Unit, UseCaseException> =
-        Project(title = title, description = description)
+        Project.create(title = title, description = description)
             .let { projectRepository.insert(it) }
             .mapFailure { UseCaseException.DatabaseException(it.message) }
 }

@@ -26,8 +26,7 @@ class UpdateProjectFailureTest {
     @MockK
     private lateinit var projectRepository: ProjectRepository
 
-    private val mockProject = Project(
-        id = ProjectId("mockId"),
+    private val mockProject = Project.create(
         title = ProjectTitle("mockTitle"),
         description = ProjectDescription("mockDescription"),
     )
