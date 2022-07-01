@@ -35,12 +35,9 @@ class GetTasksByFeatureIdTest {
     private val mockFeatureId = FeatureId("mockFeatureId")
 
     private val mockData = List(5) { index ->
-        Task(
-            id = TaskId("mockId$index"),
-            featureId = mockFeatureId,
+        Task.create(
             title = TaskTitle("mockTitle$index"),
             description = TaskDescription("mockDescription$index"),
-            phase = TaskPhase.Todo,
         )
     }
 

@@ -10,7 +10,7 @@ import toUseCaseException
 
 class CreateTaskUseCase(private val taskRepository: TaskRepository) {
     suspend operator fun invoke(featureId: FeatureId, title: TaskTitle, description: TaskDescription) =
-        Task(featureId = featureId, title = title, description = description)
+        Task.create(title = title, description = description)
             .let { taskRepository.insert(it) }
             .mapFailure { it.toUseCaseException() }
 }

@@ -11,12 +11,9 @@ import task.*
 
 class TaskUseCaseDtoTest {
 
-    private val task = Task(
-        id = TaskId("mockId"),
-        featureId = FeatureId("mockProjectId"),
+    private val task = Task.create(
         title = TaskTitle("mockTitle"),
         description = TaskDescription("mockDescription"),
-        phase = TaskPhase.Todo,
     )
 
     @Test

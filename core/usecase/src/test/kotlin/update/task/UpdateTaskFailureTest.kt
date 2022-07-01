@@ -28,12 +28,9 @@ class UpdateTaskFailureTest {
     @MockK
     private lateinit var taskRepository: TaskRepository
 
-    private val mockTask = Task(
-        id = TaskId("mockId"),
-        featureId = FeatureId("mockFeatureId"),
+    private val mockTask = Task.create(
         title = TaskTitle("mockTitle"),
         description = TaskDescription("mockDescription"),
-        phase = TaskPhase.Todo,
     )
 
     @BeforeTest

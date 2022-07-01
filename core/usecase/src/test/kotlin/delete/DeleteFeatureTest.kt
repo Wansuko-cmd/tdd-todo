@@ -31,11 +31,9 @@ class DeleteFeatureTest {
 
     private val mockFeatureId = FeatureId("mockId")
     private val mockTasks = List(3) { index ->
-        Task(
-            id = TaskId("mockTaskId$index"),
-            featureId = mockFeatureId,
-            title = TaskTitle("mockTitle"),
-            description = TaskDescription("mockDescription"),
+        Task.create(
+            title = TaskTitle("mockTitle$index"),
+            description = TaskDescription("mockDescription$index"),
         )
     }
 
