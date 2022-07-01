@@ -11,6 +11,6 @@ import toUseCaseException
 class CreateFeatureUseCase(private val featureRepository: FeatureRepository) {
     suspend operator fun invoke(projectId: ProjectId, title: FeatureTitle, description: FeatureDescription) =
         Feature.create(title = title, description = description)
-            .let { featureRepository.insert(it) }
+            .let { feature -> featureRepository.insert(feature, projectId) }
             .mapFailure { it.toUseCaseException() }
 }
