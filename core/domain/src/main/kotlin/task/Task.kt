@@ -8,6 +8,13 @@ data class Task private constructor(
     val description: TaskDescription,
     val phase: TaskPhase = TaskPhase.Todo,
 ) {
+    fun changeTitle(title: TaskTitle) =
+        Task(
+            id = this.id,
+            title = title,
+            description = this.description,
+            phase = this.phase,
+        )
     fun changePhase(phase: TaskPhase): Task =
         Task(
             id = this.id,

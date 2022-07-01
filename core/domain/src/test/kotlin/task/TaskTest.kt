@@ -66,6 +66,12 @@ class TaskTest {
     }
 
     @Test
+    fun TaskのTitleを書き換えたコピーを作成() {
+        val copiedTask = mockTask.changeTitle(TaskTitle("copiedTaskTitle"))
+        the(copiedTask.title).shouldBeEqual(TaskTitle("copiedTaskTitle"))
+    }
+
+    @Test
     fun TaskのPhaseを書き換えたコピーを作成() {
         val copiedTask = mockTask.changePhase(TaskPhase.Refactor)
         the(copiedTask.phase).shouldBeEqual(TaskPhase.Refactor)
