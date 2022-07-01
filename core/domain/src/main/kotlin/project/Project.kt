@@ -4,10 +4,10 @@ import feature.FeatureId
 import java.util.*
 
 class Project private constructor(
-    val id: ProjectId = ProjectId(UUID.randomUUID().toString()),
+    val id: ProjectId,
     val title: ProjectTitle,
     val description: ProjectDescription,
-    val features: List<FeatureId> = listOf()
+    val features: List<FeatureId>,
 ) {
     fun changeTitle(title: ProjectTitle) =
         reconstruct(
