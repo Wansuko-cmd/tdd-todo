@@ -9,19 +9,13 @@ import java.util.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-class TaskTest {
-
-    private lateinit var mockTask: Task
+class GenerateTaskTest {
 
     @BeforeTest
     fun setup() {
         mockkStatic(UUID::class)
         val uuid = "mockUUID"
         every { UUID.randomUUID().toString() } returns uuid
-        mockTask = Task.create(
-            title = TaskTitle("mockTaskTitle"),
-            description = TaskDescription("mockTaskDescription"),
-        )
     }
 
     @Test
@@ -50,36 +44,5 @@ class TaskTest {
         the(mockTask.title).shouldBeEqual(TaskTitle("mockTaskTitle"))
         the(mockTask.description).shouldBeEqual(TaskDescription("mockTaskDescription"))
         the(mockTask.phase).shouldBeEqual(TaskPhase.Red)
-    }
-
-    // TODO
-    @Test
-    fun Taskはプロパティの値が同じであれば等価とみなされる() {
-//        val otherTask = Task(
-//            id = mockTask.id,
-//            featureId = mockTask.featureId,
-//            title = mockTask.title,
-//            description = mockTask.description,
-//            phase = mockTask.phase
-//        )
-//        the(mockTask).shouldBeEqual(otherTask)
-    }
-
-    @Test
-    fun TaskのTitleを書き換えたコピーを作成() {
-        val copiedTask = mockTask.changeTitle(TaskTitle("copiedTaskTitle"))
-        the(copiedTask.title).shouldBeEqual(TaskTitle("copiedTaskTitle"))
-    }
-
-    @Test
-    fun TaskのDescriptionを書き換えたコピーを作成() {
-        val copiedTask = mockTask.changeDescription(TaskDescription("copiedTaskDescription"))
-        the(copiedTask.description).shouldBeEqual(TaskDescription("copiedTaskDescription"))
-    }
-
-    @Test
-    fun TaskのPhaseを書き換えたコピーを作成() {
-        val copiedTask = mockTask.changePhase(TaskPhase.Refactor)
-        the(copiedTask.phase).shouldBeEqual(TaskPhase.Refactor)
     }
 }
