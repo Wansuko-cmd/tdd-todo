@@ -2,6 +2,7 @@
 
 package project
 
+import feature.FeatureId
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec.the
@@ -20,6 +21,7 @@ class ProjectTest {
         mockProject = Project(
             title = ProjectTitle("mockProjectTitle"),
             description = ProjectDescription("mockProjectDescription"),
+            features = List(3) { FeatureId("mockFeature$it") },
         )
     }
 

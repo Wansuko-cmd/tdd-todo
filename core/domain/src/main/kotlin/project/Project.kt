@@ -1,11 +1,13 @@
 package project
 
+import feature.FeatureId
 import java.util.*
 
 data class Project(
     val id: ProjectId = ProjectId(UUID.randomUUID().toString()),
     val title: ProjectTitle,
     val description: ProjectDescription,
+    val features: List<FeatureId> = listOf()
 )
 
 @JvmInline
