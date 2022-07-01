@@ -9,6 +9,14 @@ data class Project private constructor(
     val description: ProjectDescription,
     val features: List<FeatureId> = listOf()
 ) {
+    fun changeTitle(title: ProjectTitle) =
+        reconstruct(
+            id = this.id,
+            title = title,
+            description = this.description,
+            features = this.features,
+        )
+
     companion object {
         fun create(
             title: ProjectTitle,
@@ -19,6 +27,7 @@ data class Project private constructor(
             description = description,
             features = listOf()
         )
+
         fun reconstruct(
             id: ProjectId,
             title: ProjectTitle,

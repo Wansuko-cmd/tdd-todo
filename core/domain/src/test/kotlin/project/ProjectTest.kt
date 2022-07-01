@@ -2,7 +2,6 @@
 
 package project
 
-import feature.Feature
 import feature.FeatureId
 import io.mockk.every
 import io.mockk.mockkStatic
@@ -43,5 +42,15 @@ class ProjectTest {
         the(mockProject.title).shouldBeEqual(ProjectTitle("mockProjectTitle"))
         the(mockProject.description).shouldBeEqual(ProjectDescription("mockProjectDescription"))
         the(mockProject.features).shouldBeEqual(List(3) { index -> FeatureId("mockFeatureId$index") })
+    }
+
+    @Test
+    fun ProjectのTitleを書き換えたコピーを作成() {
+        val mockProject = Project.create(
+            title = ProjectTitle("mockProjectTitle"),
+            description = ProjectDescription("mockProjectDescription"),
+        )
+        val copiedProject = mockProject.changeTitle(title = ProjectTitle("copiedProjectTitle"))
+        the(copiedProject.title).shouldBeEqual(ProjectTitle("copiedProjectTitle"))
     }
 }
