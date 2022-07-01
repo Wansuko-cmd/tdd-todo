@@ -10,6 +10,14 @@ data class Feature private constructor(
     val phase: FeaturePhase,
     val tasks: List<TaskId>,
 ) {
+    fun changeTitle(title: FeatureTitle) =
+        reconstruct(
+            id = this.id,
+            title = title,
+            description = this.description,
+            phase = this.phase,
+            tasks = this.tasks,
+        )
     fun changePhase(phase: FeaturePhase): Feature = copy(phase = phase)
 
     companion object {
