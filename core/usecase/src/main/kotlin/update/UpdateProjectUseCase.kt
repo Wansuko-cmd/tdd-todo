@@ -4,8 +4,9 @@ import UseCaseException
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.flatMap
 import com.wsr.apiresult.mapBoth
-import com.wsr.apiresult.mapFailure
 import dto.project.ProjectQueryService
+import dto.project.ProjectUseCaseDto
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import project.*
 import toUseCaseException
 
@@ -16,13 +17,13 @@ class UpdateProjectUseCase(
     suspend operator fun invoke(
         projectId: ProjectId,
         title: ProjectTitle,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<ProjectUseCaseDto, UseCaseException> =
         update(projectId) { project -> project.changeTitle(title = title) }
 
     suspend operator fun invoke(
         projectId: ProjectId,
         description: ProjectDescription,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<ProjectUseCaseDto, UseCaseException> =
         update(projectId) { project -> project.changeDescription(description = description) }
 
     private suspend fun update(projectId: ProjectId, newProjectBuilder: (Project) -> Project) =
@@ -31,9 +32,12 @@ class UpdateProjectUseCase(
                 success = newProjectBuilder,
                 failure = { it.toUseCaseException() },
             )
-            .flatMap { task ->
+            .flatMap { project ->
                 projectRepository
-                    .update(task)
-                    .mapFailure { it.toUseCaseException() }
+                    .update(project)
+                    .mapBoth(
+                        success = { project.toUseCaseDto() },
+                        failure = { it.toUseCaseException() },
+                    )
             }
 }

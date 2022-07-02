@@ -4,6 +4,7 @@ package update.project
 
 import com.wsr.apiresult.ApiResult
 import dto.project.ProjectQueryService
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -41,14 +42,16 @@ class UpdateProjectSuccessTest {
 
     @Test
     fun 特定のProjectのTitleを更新() = runTest {
-        val result = updateProjectUseCase(projectId = mockProject.id, title = ProjectTitle("newTitle"))
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newTitle = ProjectTitle("newTitle")
+        val result = updateProjectUseCase(projectId = mockProject.id, title = newTitle)
+        the(result).shouldBeEqual(ApiResult.Success(mockProject.changeTitle(newTitle).toUseCaseDto()))
     }
 
     @Test
     fun 特定のProjectのDescriptionを更新() = runTest {
-        val result = updateProjectUseCase(projectId = mockProject.id, description = ProjectDescription("newDescription"))
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newDescription = ProjectDescription("newDescription")
+        val result = updateProjectUseCase(projectId = mockProject.id, description = newDescription)
+        the(result).shouldBeEqual(ApiResult.Success(mockProject.changeDescription(newDescription).toUseCaseDto()))
     }
 
     @AfterTest
