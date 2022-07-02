@@ -4,8 +4,9 @@ import UseCaseException
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.flatMap
 import com.wsr.apiresult.mapBoth
-import com.wsr.apiresult.mapFailure
 import dto.feature.FeatureQueryService
+import dto.feature.FeatureUseCaseDto
+import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import feature.Feature
 import feature.FeatureDescription
 import feature.FeatureId
@@ -21,19 +22,19 @@ class UpdateFeatureUseCase(
     suspend operator fun invoke(
         featureId: FeatureId,
         title: FeatureTitle,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<FeatureUseCaseDto, UseCaseException> =
         update(featureId) { feature -> feature.changeTitle(title = title) }
 
     suspend operator fun invoke(
         featureId: FeatureId,
         description: FeatureDescription,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<FeatureUseCaseDto, UseCaseException> =
         update(featureId) { feature -> feature.changeDescription(description = description) }
 
     suspend operator fun invoke(
         featureId: FeatureId,
         phase: FeaturePhase,
-    ): ApiResult<Unit, UseCaseException> =
+    ): ApiResult<FeatureUseCaseDto, UseCaseException> =
         update(featureId) { feature -> feature.changePhase(phase) }
 
     private suspend fun update(featureId: FeatureId, newFeatureBuilder: (Feature) -> Feature) =
@@ -45,6 +46,9 @@ class UpdateFeatureUseCase(
             .flatMap { feature ->
                 featureRepository
                     .update(feature)
-                    .mapFailure { it.toUseCaseException() }
+                    .mapBoth(
+                        success = { feature.toUseCaseDto() },
+                        failure = { it.toUseCaseException() },
+                    )
             }
 }

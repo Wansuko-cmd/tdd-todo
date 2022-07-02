@@ -4,6 +4,7 @@ package update.feature
 
 import com.wsr.apiresult.ApiResult
 import dto.feature.FeatureQueryService
+import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import feature.Feature
 import feature.FeatureDescription
 import feature.FeaturePhase
@@ -45,20 +46,23 @@ class UpdateFeatureSuccessTest {
 
     @Test
     fun 特定のFeatureのTitleを更新() = runTest {
-        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = FeatureTitle("newTitle"))
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newTitle = FeatureTitle("newTitle")
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, title = newTitle)
+        the(result).shouldBeEqual(ApiResult.Success(mockFeature.changeTitle(newTitle).toUseCaseDto()))
     }
 
     @Test
     fun 特定のFeatureのDescriptionを更新() = runTest {
-        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, description = FeatureDescription("newDescription"))
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newDescription = FeatureDescription("newDescription")
+        val result = updateFeaturePhaseUseCase(featureId = mockFeature.id, description = newDescription)
+        the(result).shouldBeEqual(ApiResult.Success(mockFeature.changeDescription(newDescription).toUseCaseDto()))
     }
 
     @Test
     fun 特定のFeatureのPhaseを更新() = runTest {
-        val result = updateFeaturePhaseUseCase(mockFeature.id, FeaturePhase.Done)
-        the(result).shouldBeEqual(ApiResult.Success(Unit))
+        val newPhase = FeaturePhase.Done
+        val result = updateFeaturePhaseUseCase(mockFeature.id, newPhase)
+        the(result).shouldBeEqual(ApiResult.Success(mockFeature.changePhase(newPhase).toUseCaseDto()))
     }
 
     @AfterTest
