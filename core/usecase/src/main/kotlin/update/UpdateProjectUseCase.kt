@@ -7,7 +7,11 @@ import com.wsr.apiresult.mapBoth
 import dto.project.ProjectQueryService
 import dto.project.ProjectUseCaseDto
 import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
-import project.*
+import project.Project
+import project.ProjectDescription
+import project.ProjectId
+import project.ProjectRepository
+import project.ProjectTitle
 import toUseCaseException
 
 class UpdateProjectUseCase(

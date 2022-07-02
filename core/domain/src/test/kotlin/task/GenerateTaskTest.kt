@@ -4,7 +4,7 @@ package task
 
 import io.mockk.every
 import io.mockk.mockkStatic
-import org.javalite.test.jspec.JSpec.*
+import org.javalite.test.jspec.JSpec.the
 import java.util.*
 import kotlin.test.BeforeTest
 import kotlin.test.Test

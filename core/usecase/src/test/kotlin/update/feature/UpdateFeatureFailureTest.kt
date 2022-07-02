@@ -4,7 +4,11 @@ package update.feature
 
 import com.wsr.apiresult.ApiResult
 import dto.feature.FeatureQueryService
-import feature.*
+import feature.Feature
+import feature.FeatureDescription
+import feature.FeaturePhase
+import feature.FeatureRepository
+import feature.FeatureTitle
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -13,7 +17,6 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
-import project.ProjectId
 import update.UpdateFeatureUseCase
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest

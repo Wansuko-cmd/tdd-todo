@@ -7,7 +7,6 @@ import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
 import org.javalite.test.jspec.JSpec.the
 import project.Project
 import project.ProjectDescription
-import project.ProjectId
 import project.ProjectTitle
 import kotlin.test.Test
 

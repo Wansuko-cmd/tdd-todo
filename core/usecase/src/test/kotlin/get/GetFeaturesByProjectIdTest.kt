@@ -2,10 +2,12 @@
 
 package get
 
-import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
-import feature.*
 import dto.feature.FeatureQueryService
+import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
+import feature.Feature
+import feature.FeatureDescription
+import feature.FeatureTitle
 import get.feature.GetFeaturesByProjectIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -54,7 +56,6 @@ class GetFeaturesByProjectIdTest {
         val expected = ApiResult.Failure(UseCaseException.DatabaseException("Error"))
         the(getFeaturesByProjectIdUseCase(mockProjectId)).shouldBeEqual(expected)
     }
-
 
     @AfterTest
     fun 関連するメソッド呼び出しの回数の確認() {

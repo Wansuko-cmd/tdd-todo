@@ -1,6 +1,10 @@
 package dto.task
 
-import task.*
+import task.Task
+import task.TaskDescription
+import task.TaskId
+import task.TaskPhase
+import task.TaskTitle
 
 data class TaskUseCaseDto(
     val id: TaskId,

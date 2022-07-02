@@ -2,10 +2,10 @@
 
 package get
 
-import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import com.wsr.apiresult.ApiResult
-import feature.*
 import dto.task.TaskQueryService
+import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
+import feature.FeatureId
 import get.task.GetTasksByFeatureIdUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -15,7 +15,9 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
-import task.*
+import task.Task
+import task.TaskDescription
+import task.TaskTitle
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -54,7 +56,6 @@ class GetTasksByFeatureIdTest {
         val expected = ApiResult.Failure(UseCaseException.DatabaseException("Error"))
         the(getTasksByFeatureUseCase(mockFeatureId)).shouldBeEqual(expected)
     }
-
 
     @AfterTest
     fun 関連するメソッド呼び出しの回数の確認() {

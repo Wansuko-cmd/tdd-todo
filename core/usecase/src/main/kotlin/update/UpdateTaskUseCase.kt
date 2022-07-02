@@ -4,11 +4,15 @@ import UseCaseException
 import com.wsr.apiresult.ApiResult
 import com.wsr.apiresult.flatMap
 import com.wsr.apiresult.mapBoth
-import com.wsr.apiresult.mapFailure
 import dto.task.TaskQueryService
 import dto.task.TaskUseCaseDto
 import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
-import task.*
+import task.Task
+import task.TaskDescription
+import task.TaskId
+import task.TaskPhase
+import task.TaskRepository
+import task.TaskTitle
 import toUseCaseException
 
 class UpdateTaskUseCase(
@@ -33,7 +37,6 @@ class UpdateTaskUseCase(
         phase: TaskPhase,
     ): ApiResult<TaskUseCaseDto, UseCaseException> =
         update(taskId) { task -> task.changePhase(phase) }
-
 
     private suspend fun update(taskId: TaskId, newTaskBuilder: (Task) -> Task) =
         taskQueryService.get(taskId)

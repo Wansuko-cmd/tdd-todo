@@ -6,7 +6,9 @@ import dto.task.TaskUseCaseDto
 import dto.task.TaskUseCaseDto.Companion.toUseCaseDto
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test
-import task.*
+import task.Task
+import task.TaskDescription
+import task.TaskTitle
 
 class TaskUseCaseDtoTest {
 

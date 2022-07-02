@@ -2,9 +2,8 @@
 
 package task
 
-import org.javalite.test.jspec.JSpec.*
+import org.javalite.test.jspec.JSpec.the
 import kotlin.test.Test
-
 
 class TaskEqualityTest {
     @Test

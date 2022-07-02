@@ -5,8 +5,8 @@ package feature
 import io.mockk.every
 import io.mockk.mockkStatic
 import org.javalite.test.jspec.JSpec.the
-import task.*
-import java.util.*
+import task.TaskId
+import java.util.UUID
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -49,5 +49,4 @@ class GenerateFeatureTest {
         the(mockFeature.phase).shouldBeEqual(FeaturePhase.InProgress)
         the(mockFeature.tasks).shouldBeEqual(List(3) { index -> TaskId("mockTaskId$index") })
     }
-
 }

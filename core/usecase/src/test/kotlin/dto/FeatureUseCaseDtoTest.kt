@@ -4,7 +4,9 @@ package dto
 
 import dto.feature.FeatureUseCaseDto
 import dto.feature.FeatureUseCaseDto.Companion.toUseCaseDto
-import feature.*
+import feature.Feature
+import feature.FeatureDescription
+import feature.FeatureTitle
 import org.javalite.test.jspec.JSpec.the
 import org.junit.Test
 

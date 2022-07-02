@@ -2,20 +2,22 @@
 
 package get
 
+import QueryServiceException
 import com.wsr.apiresult.ApiResult
+import dto.project.ProjectQueryService
+import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
+import get.project.GetAllProjectsUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.impl.annotations.MockK
-import org.javalite.test.jspec.JSpec.the
-import project.*
-import QueryServiceException
-import dto.project.ProjectUseCaseDto.Companion.toUseCaseDto
-import dto.project.ProjectQueryService
-import get.project.GetAllProjectsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.javalite.test.jspec.JSpec.the
+import project.Project
+import project.ProjectDescription
+import project.ProjectTitle
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

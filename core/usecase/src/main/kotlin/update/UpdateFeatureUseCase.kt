@@ -1,9 +1,17 @@
 package update
 
 import UseCaseException
-import com.wsr.apiresult.*
+import com.wsr.apiresult.ApiResult
+import com.wsr.apiresult.flatMap
+import com.wsr.apiresult.mapBoth
+import com.wsr.apiresult.mapFailure
 import dto.feature.FeatureQueryService
-import feature.*
+import feature.Feature
+import feature.FeatureDescription
+import feature.FeatureId
+import feature.FeaturePhase
+import feature.FeatureRepository
+import feature.FeatureTitle
 import toUseCaseException
 
 class UpdateFeatureUseCase(

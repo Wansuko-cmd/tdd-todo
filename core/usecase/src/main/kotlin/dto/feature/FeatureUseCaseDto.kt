@@ -1,6 +1,10 @@
 package dto.feature
 
-import feature.*
+import feature.Feature
+import feature.FeatureDescription
+import feature.FeatureId
+import feature.FeaturePhase
+import feature.FeatureTitle
 import task.TaskId
 
 data class FeatureUseCaseDto(

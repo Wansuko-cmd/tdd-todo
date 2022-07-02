@@ -5,7 +5,6 @@ package update.task
 import RepositoryException
 import com.wsr.apiresult.ApiResult
 import dto.task.TaskQueryService
-import feature.FeatureId
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -14,7 +13,11 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
-import task.*
+import task.Task
+import task.TaskDescription
+import task.TaskPhase
+import task.TaskRepository
+import task.TaskTitle
 import update.UpdateTaskUseCase
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest

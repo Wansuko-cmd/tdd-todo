@@ -2,11 +2,7 @@
 
 package task
 
-import io.mockk.every
-import io.mockk.mockkStatic
-import org.javalite.test.jspec.JSpec.*
-import java.util.*
-import kotlin.test.BeforeTest
+import org.javalite.test.jspec.JSpec.the
 import kotlin.test.Test
 
 class ChangeTaskPropertyTest {

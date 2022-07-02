@@ -13,7 +13,10 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
-import project.*
+import project.Project
+import project.ProjectDescription
+import project.ProjectRepository
+import project.ProjectTitle
 import update.UpdateProjectUseCase
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
