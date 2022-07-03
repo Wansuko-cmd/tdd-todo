@@ -8,9 +8,9 @@ import feature.FeatureRepository
 import task.TaskRepository
 
 class DeleteFeatureUseCase(
-    taskQueryService: TaskQueryService,
     featureRepository: FeatureRepository,
     taskRepository: TaskRepository,
+    taskQueryService: TaskQueryService,
 ) {
     private val featureDeleter = FeatureDeleter(taskQueryService, featureRepository, taskRepository)
 

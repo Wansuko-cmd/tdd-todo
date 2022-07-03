@@ -53,7 +53,7 @@ class DeleteFeatureTest {
         // DBに入っている値を取得する処理のモック
         coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockTasks)
 
-        deleteFeatureUseCase = DeleteFeatureUseCase(taskQueryService, featureRepository, taskRepository)
+        deleteFeatureUseCase = DeleteFeatureUseCase(featureRepository, taskRepository, taskQueryService)
     }
 
     @Test

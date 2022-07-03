@@ -69,11 +69,11 @@ class DeleteProjectTest {
         coEvery { taskQueryService.getByFeatureId(mockFeature.id) } returns ApiResult.Success(mockTasks)
 
         deleteProjectUseCase = DeleteProjectUseCase(
-            taskQueryService,
-            featureQueryService,
+            projectRepository,
             featureRepository,
             taskRepository,
-            projectRepository,
+            featureQueryService,
+            taskQueryService,
         )
     }
 

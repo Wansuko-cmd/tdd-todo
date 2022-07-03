@@ -15,11 +15,11 @@ import task.TaskRepository
 import toUseCaseException
 
 class DeleteProjectUseCase(
-    private val taskQueryService: TaskQueryService,
-    private val featureQueryService: FeatureQueryService,
-    private val featureRepository: FeatureRepository,
-    private val taskRepository: TaskRepository,
     private val projectRepository: ProjectRepository,
+    featureRepository: FeatureRepository,
+    taskRepository: TaskRepository,
+    private val featureQueryService: FeatureQueryService,
+    taskQueryService: TaskQueryService,
 ) {
     private val featureDeleter = FeatureDeleter(taskQueryService, featureRepository, taskRepository)
 
