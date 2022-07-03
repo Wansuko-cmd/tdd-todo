@@ -93,6 +93,7 @@ class DeleteProjectTest {
         // 常に一回
         coVerify(exactly = 1) { featureQueryService.getByProjectId(mockProjectId) }
         coVerify(exactly = 1) { taskQueryService.getByFeatureId(mockFeature.id) }
+
         confirmVerified(taskQueryService, featureRepository, taskRepository)
     }
 }
