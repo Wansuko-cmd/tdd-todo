@@ -16,6 +16,7 @@ import kotlinx.coroutines.test.runTest
 import org.javalite.test.jspec.JSpec.the
 import task.Task
 import task.TaskDescription
+import task.TaskId
 import task.TaskRepository
 import task.TaskTitle
 import kotlin.test.AfterTest
@@ -50,7 +51,7 @@ class DeleteFeatureTest {
     fun 特定のFeatureを削除() = runTest {
         coEvery { taskQueryService.getByFeatureId(mockFeatureId) } returns ApiResult.Success(mockTasks)
         coEvery { featureRepository.delete(mockFeatureId) } returns ApiResult.Success(Unit)
-        coEvery { taskRepository.delete(taskIds = any()) } returns ApiResult.Success(Unit)
+        coEvery { taskRepository.delete(taskId = TaskId(any())) } returns ApiResult.Success(Unit)
         val result = deleteFeatureUseCase(mockFeatureId)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
@@ -59,7 +60,7 @@ class DeleteFeatureTest {
     fun 関連するメソッド呼び出しの回数の確認() {
         coVerify(exactly = 1) { taskQueryService.getByFeatureId(mockFeatureId) }
         coVerify(exactly = 1) { featureRepository.delete(mockFeatureId) }
-        coVerify(exactly = 1) { taskRepository.delete(taskIds = any()) }
+        coVerify(exactly = 3) { taskRepository.delete(taskId = TaskId(any())) }
         confirmVerified(taskQueryService, featureRepository, taskRepository)
     }
 }

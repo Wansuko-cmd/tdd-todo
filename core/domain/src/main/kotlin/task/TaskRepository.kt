@@ -8,5 +8,4 @@ interface TaskRepository {
     suspend fun insert(task: Task, featureId: FeatureId): ApiResult<Unit, RepositoryException>
     suspend fun update(task: Task): ApiResult<Unit, RepositoryException>
     suspend fun delete(taskId: TaskId): ApiResult<Unit, RepositoryException>
-    suspend fun delete(taskIds: List<TaskId>): ApiResult<Unit, RepositoryException>
 }
