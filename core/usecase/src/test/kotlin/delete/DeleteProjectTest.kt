@@ -11,6 +11,8 @@ import feature.FeatureRepository
 import feature.FeatureTitle
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.confirmVerified
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -29,16 +31,17 @@ import kotlin.test.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class DeleteProjectTest {
     private lateinit var deleteProjectUseCase: DeleteProjectUseCase
+
     @MockK
-    private lateinit var taskRepository: TaskRepository
+    private lateinit var projectRepository: ProjectRepository
     @MockK
     private lateinit var featureRepository: FeatureRepository
     @MockK
-    private lateinit var taskQueryService: TaskQueryService
+    private lateinit var taskRepository: TaskRepository
     @MockK
     private lateinit var featureQueryService: FeatureQueryService
     @MockK
-    private lateinit var projectRepository: ProjectRepository
+    private lateinit var taskQueryService: TaskQueryService
 
     private val mockProjectId = ProjectId("mockProjectId")
     private val mockFeature = Feature.create(
@@ -55,26 +58,41 @@ class DeleteProjectTest {
     @BeforeTest
     fun setup() {
         MockKAnnotations.init(this)
-        deleteProjectUseCase = DeleteProjectUseCase(taskQueryService, featureQueryService, featureRepository, taskRepository, projectRepository)
+
+        // それぞれの要素を削除する処理のモック
+        coEvery { projectRepository.delete(mockProjectId) } returns ApiResult.Success(Unit)
+        coEvery { featureRepository.delete(mockFeature.id) } returns ApiResult.Success(Unit)
+        coEvery { taskRepository.delete(TaskId(any())) } returns ApiResult.Success(Unit)
+
+        // DBに入っている値を取得する処理のモック
+        coEvery { featureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Success(listOf(mockFeature))
+        coEvery { taskQueryService.getByFeatureId(mockFeature.id) } returns ApiResult.Success(mockTasks)
+
+        deleteProjectUseCase = DeleteProjectUseCase(
+            taskQueryService,
+            featureQueryService,
+            featureRepository,
+            taskRepository,
+            projectRepository,
+        )
     }
 
     @Test
     fun 特定のFeatureを削除() = runTest {
-        coEvery { taskQueryService.getByFeatureId(mockFeature.id) } returns ApiResult.Success(mockTasks)
-        coEvery { featureRepository.delete(mockFeature.id) } returns ApiResult.Success(Unit)
-        coEvery { taskRepository.delete(TaskId(any())) } returns ApiResult.Success(Unit)
-        coEvery { featureQueryService.getByProjectId(mockProjectId) } returns ApiResult.Success(listOf(mockFeature))
-        coEvery { projectRepository.delete(mockProjectId) } returns ApiResult.Success(Unit)
-
         val result = deleteProjectUseCase(mockProjectId)
         the(result).shouldBeEqual(ApiResult.Success(Unit))
     }
 
     @AfterTest
     fun 関連するメソッド呼び出しの回数の確認() {
-//        coVerify(exactly = 1) { taskQueryService.getByFeatureId(mockFeatureId) }
-//        coVerify(exactly = 1) { featureRepository.delete(mockFeatureId) }
-//        coVerify(exactly = 3) { taskRepository.delete(taskId = TaskId(any())) }
-//        confirmVerified(taskQueryService, featureRepository, taskRepository)
+        // 削除する要素の数だけ呼び出される
+        coVerify(exactly = 1) { projectRepository.delete(mockProjectId) }
+        coVerify(exactly = 1) { featureRepository.delete(mockFeature.id) }
+        coVerify(exactly = 3) { taskRepository.delete(TaskId(any())) }
+
+        // 常に一回
+        coVerify(exactly = 1) { featureQueryService.getByProjectId(mockProjectId) }
+        coVerify(exactly = 1) { taskQueryService.getByFeatureId(mockFeature.id) }
+        confirmVerified(taskQueryService, featureRepository, taskRepository)
     }
 }
